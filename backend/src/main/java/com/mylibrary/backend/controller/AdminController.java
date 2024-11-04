@@ -10,13 +10,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/admin")
-
+@PreAuthorize( "hasAnyRole('ADMIN','SUPERADMIN')" )
 public class AdminController {
 
     @Autowired
     private AdminService adminService;
 
-    @PreAuthorize("hasAuthority('admin:read')")
+
     @GetMapping("/userlist")
     public List<User> get() {
         return adminService.getAllUsers();
