@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Table(name = "livres")
 @Entity
 @Data
@@ -13,13 +15,19 @@ import lombok.NoArgsConstructor;
 public class Livre{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String titre;
     private String auteur;
     private String description;
     private boolean disponibilite;
+    private int nombreCopieDispo;
     private float prix;
+
+    @OneToMany(mappedBy = "livre", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Facturation> facturations;
+
 
     @ManyToOne
     @JoinColumn(name = "categorie_id")
