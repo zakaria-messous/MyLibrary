@@ -14,6 +14,7 @@ import java.security.SignatureException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleSecurityException(Exception exception) {
         ProblemDetail errorDetail = null;
@@ -51,6 +52,12 @@ public class GlobalExceptionHandler {
         if (exception instanceof ExpiredJwtException) {
             errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
             errorDetail.setProperty("description", "The JWT token has expired");
+        }
+
+        // Handle the custom BookNotAvailableException
+        if (exception instanceof BookNotAvailableException) {
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(400), exception.getMessage());
+            errorDetail.setProperty("description", "The requested book is not available for rent at the moment");
         }
 
         if (errorDetail == null) {
