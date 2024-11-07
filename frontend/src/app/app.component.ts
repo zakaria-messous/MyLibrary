@@ -1,11 +1,12 @@
+// app.component.ts
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NavComponent } from './components/nav/nav.component';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { RouterModule } from '@angular/router'; // Importer RouterModule
+import { RouterOutlet } from '@angular/router'; // Importer RouterOutlet pour l'utiliser dans le template
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidenavComponent, NavComponent],  // Ajoutez NavComponent dans les imports
+  imports: [RouterOutlet, RouterModule], // Ajouter RouterModule et RouterOutlet ici
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
