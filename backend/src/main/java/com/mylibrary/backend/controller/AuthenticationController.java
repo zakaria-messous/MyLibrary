@@ -3,6 +3,7 @@ package com.mylibrary.backend.controller;
 import com.mylibrary.backend.dtos.LoginResponse;
 import com.mylibrary.backend.dtos.LoginUserDto;
 import com.mylibrary.backend.dtos.RegisterUserDto;
+import com.mylibrary.backend.entitie.Role;
 import com.mylibrary.backend.entitie.User;
 import com.mylibrary.backend.service.AuthenticationService;
 import com.mylibrary.backend.service.JwtService;
@@ -26,6 +27,7 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
+        if(registerUserDto.getRole()== null){registerUserDto.setRole(Role.valueOf("CLIENT"));}
         User registeredUser = authenticationService.signup(registerUserDto);
 
         return ResponseEntity.ok(registeredUser);

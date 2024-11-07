@@ -1,10 +1,16 @@
 package com.mylibrary.backend.controller;
 
 // LivreController.java
+import com.mylibrary.backend.entitie.Emprunt;
+import com.mylibrary.backend.entitie.Facturation;
 import com.mylibrary.backend.entitie.Livre;
 import com.mylibrary.backend.service.LivreService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -22,24 +28,37 @@ public class LivreController {
     }
 
     @GetMapping("/{id}")
-    public Livre getLivreById(@PathVariable int id) {
+    public Livre getLivreById(@PathVariable Long id) {
         return livreService.getLivreById(id);
     }
 
+    @PreAuthorize( "hasAnyRole('ADMIN','SUPERADMIN')" )
     @PostMapping
     public Livre createLivre(@RequestBody Livre livre) {
         return livreService.saveLivre(livre);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Livre> updateLivre(@PathVariable int id, @RequestBody Livre updatedLivre) {
+    public ResponseEntity<Livre> updateLivre(@PathVariable Long id, @RequestBody Livre updatedLivre) {
         return livreService.updateLivre(id, updatedLivre)
                 .map(livre -> ResponseEntity.ok(livre))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/buy/{id}")
+    public Facturation buyLivre(@PathVariable Long id) {
+        return livreService.buyBook(id);
+    }
+
+    @PostMapping("/rent")
+    public Emprunt rentLivre(
+            @RequestParam Long id,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+        return livreService.rentBook(id, date);
+    }
+
     @DeleteMapping("/{id}")
-    public void deleteLivre(@PathVariable int id) {
+    public void deleteLivre(@PathVariable Long id) {
         livreService.deleteLivre(id);
     }
 }
