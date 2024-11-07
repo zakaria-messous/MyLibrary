@@ -109,11 +109,11 @@
 }
 
 .submenu-item a {
-  color: #a0a8b8;
+  color: #000000;
   text-decoration: none;
   transition: color 0.3s;
 }
 
 .submenu-item a:hover {
-  color: #ffffff;
+  color: #f45709;
 }
