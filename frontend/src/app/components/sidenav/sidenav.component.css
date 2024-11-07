@@ -1,0 +1,119 @@
+.sidenav {
+  width: 250px;
+  background-color:  #ffffff;
+  color: #f45709;
+  font-family: Arial, sans-serif;
+  padding: 15px;
+  height: 100vh;
+}
+.Dashbord{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+    padding-left: 40px; 
+  background: url('../../../assets/dashbord.png') no-repeat left center;
+  background-size: 30px 30px; /* Adjust size of the logo */
+  
+}
+.book{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+    padding-left: 40px; 
+  background: url('../../../assets/book.png') no-repeat left center;
+  background-size: 30px 30px; /* Adjust size of the logo */
+  
+}
+#add{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+    padding-left: 40px; 
+  background: url('../../../assets/add.png') no-repeat left center;
+  background-size: 20px 20px; /* Adjust size of the logo */
+}
+#update{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+    padding-left: 40px; 
+  background: url('../../../assets/update.jpeg') no-repeat left center;
+  background-size: 20px 20px; /* Adjust size of the logo */
+}
+#delete{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+    padding-left: 40px; 
+  background: url('../../../assets/delete.png') no-repeat left center;
+  background-size: 20px 20px; /* Adjust size of the logo */
+}
+.usermanage{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+    padding-left: 40px; 
+  background: url('../../../assets/user.png') no-repeat left center;
+  background-size: 30px 30px; /* Adjust size of the logo */
+}
+.sidenav h2 {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-left: 70px; /* To make space for the background image */
+    background: url('../../../assets/logo.jpeg') no-repeat left center;
+    background-size: 80px 80px; /* Adjust size of the logo */
+    line-height: 50px; /* Adjust for vertical alignment of the logo */
+  }
+  
+  .logo {
+    width: 30px; /* Ajustez la taille de l'image */
+    height: auto;
+  }
+  
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #c0c9d2;
+  transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+  background-color: #f45709;
+  border-radius: 5px;
+}
+
+.arrow {
+  transition: transform 0.3s;
+}
+
+.arrow.open {
+  transform: rotate(90deg); /* Rotate the arrow to indicate expanded state */
+}
+
+.submenu {
+  margin-left: 20px;
+  padding-top: 5px;
+}
+
+.submenu-item {
+  padding: 8px 0;
+  padding-left: 10px;
+  font-size: 14px;
+  color: #a0a8b8;
+}
+
+.submenu-item a {
+  color: #a0a8b8;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.submenu-item a:hover {
+  color: #ffffff;
+}
