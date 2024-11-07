@@ -5,13 +5,26 @@
 /tmp
 /out-tsc
 /bazel-out
+/angular/cache
+.history
 
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
+# Dependencies
+# Node.js modules and caches
+node_modules/
+.npm/
+.cache/
 
-# IDEs and editors
+# Angular build output and caches
+dist/
+.angular/
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+libpeerconnection.log
+testem.log
+
+# IDE and editor settings
 .idea/
 .project
 .classpath
@@ -20,22 +33,23 @@ yarn-error.log
 .settings/
 *.sublime-workspace
 
-# Visual Studio Code
+# Visual Studio Code settings
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
+# Environment files
+src/environments/environment*.ts
+
+# Testing & Coverage
 /coverage
-/libpeerconnection.log
-testem.log
 /typings
+
+# Sass and other caches
+.sass-cache/
+connect.lock
 
 # System files
 .DS_Store
