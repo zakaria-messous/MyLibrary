@@ -1,2 +1,4 @@
 
 backend/src/main/resources/application.properties
+frontend/.angular/cache/18.2.11/frontend/vite/deps
+frontend/node_modules
