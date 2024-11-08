@@ -1,0 +1,87 @@
+/* Conteneur principal */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f2f5;
+  }
+  
+  /* Boîte d'inscription */
+  .register-box {
+    display: flex;
+    width: 900px; /* Largeur totale de la boîte */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+  }
+  
+  /* Section d'inscription */
+  .register-form {
+    flex: 1; /* Prend la moitié de l'espace horizontalement */
+    padding: 40px;
+    background-color: #fff;
+  }
+  
+  .register-form h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .register-form p {
+    margin: 10px 0 20px;
+    color: #e0e0e0;
+  }
+  
+  .input-group {
+    margin: 15px 0;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .register-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #f28853;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Section de connexion */
+  .login-box {
+    flex: 1; /* Prend la moitié de l'espace horizontalement */
+    padding: 40px;
+    background-color: #f28853;
+    color: #fff;
+  }
+  
+  .login-box h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .login-box p {
+    margin: 20px 0;
+    color: #888;
+  }
+  
+  .login-button {
+    padding: 10px 20px;
+    background-color: rgb(251, 84, 62);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
