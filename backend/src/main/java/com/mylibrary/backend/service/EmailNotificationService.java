@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailNotificationService {
 
+    /*
     @Autowired
     private JavaMailSender mailSender;
 
@@ -17,5 +18,5 @@ public class EmailNotificationService {
         mailMessage.setSubject(subject);
         mailMessage.setText(message);
         mailSender.send(mailMessage);
-    }
+    }*/
 }
