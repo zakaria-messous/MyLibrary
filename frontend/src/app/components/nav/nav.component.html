@@ -1,0 +1,15 @@
+<nav class="navbar">
+ 
+  <div class="navbar-center">
+    <span>Library Management System</span>
+  </div>
+  <div class="navbar-right">
+    <span>Hi, Admin</span>
+    <span class="material-icons" (click)="toggleProfileMenu()">account_circle</span>
+    <!-- Menu déroulant -->
+    <div *ngIf="isProfileMenuOpen" class="profile-menu">
+      <div class="profile-menu-item" (click)="viewProfile()">View Profile</div>
+      <div class="profile-menu-item" (click)="logout()">Logout</div>
+    </div>
+  </div>
+</nav>

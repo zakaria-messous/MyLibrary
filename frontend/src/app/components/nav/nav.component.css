@@ -1,0 +1,60 @@
+/* Styles pour le navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f45709;
+  color: white;
+  padding: 10px 20px;
+}
+
+.navbar-left .menu-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.navbar-center {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 18px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;             /* Alignement vertical des éléments */
+  justify-content: flex-end;       /* Aligne tout à droite */
+  gap: 10px;                       /* Espacement entre "Hi, Admin" et l'icône */
+  position: absolute;              /* Position absolue pour aligner à l'extrême droite */
+  right: 20px;                     /* Marge à droite */
+}
+
+.material-icons {
+  font-size: 30px;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.profile-menu {
+  position: absolute;
+  top: 35px; /* Positionne le menu sous l'icône */
+  right: 0;
+  background-color: #444;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 150px;
+  z-index: 1000;
+}
+
+.profile-menu-item {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+}
+
+.profile-menu-item:hover {
+  background-color: #555;
+}
