@@ -1,13 +1,14 @@
-# Use an OpenJDK image as the base
-FROM openjdk:23-jdk-slim
+# Use an OpenJDK base image
+FROM openjdk:17-jdk-slim
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
+# Copy the JAR file to the container
+COPY target/backend-0.0.1-SNAPSHOT.jar mylibrary.jar
 
-
-# Expose the application port (default: 8080)
+# Expose the application's port
 EXPOSE 8080
 
-COPY target/*.jar /opt/app.jar
-ENTRYPOINT exec java $JAVA_OPTS -jar app.jar
+# Run the Spring Boot application
+ENTRYPOINT ["java", "-jar", "mylibrary.jar"]
