@@ -1,0 +1,77 @@
+/* Container for sidenav and content */
+:host {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* Sidenav styling */
+  app-sidenav {
+    width: 250px;
+    background-color: #2e3b4e;
+    color: #ffffff;
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    z-index: 1;
+  }
+  
+  /* Main content styling */
+  .content {
+    margin-left: 250px; /* Same as sidenav width */
+    flex: 1;
+    padding: 20px;
+    background-color: #f4f5f7;
+    overflow-y: auto;
+  }
+  
+  /* Navigation bar styling */
+  app-nav {
+    width: 100%;
+    background-color: #f45709;
+    color: #ffffff;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Container for page content */
+  .container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Heading styling */
+  h2 {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  button {
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: #f45709;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #f45709;
+  }
+  /* S111 */

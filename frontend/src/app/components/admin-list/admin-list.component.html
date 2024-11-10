@@ -1,0 +1,62 @@
+<app-sidenav></app-sidenav> <!-- Barre de navigation latérale -->
+<div class="content">
+  <app-nav></app-nav> <!-- Barre de navigation supérieure -->
+  <div class="container">
+    <h2>Admin List</h2>
+
+    <!-- Bouton Ajouter administrateur en haut à droite, affiché seulement si le formulaire n'est pas visible -->
+    <div class="add-button-container" *ngIf="!newAdmin && !adminEnCours">
+      <button (click)="addAdmin()">Add Admin</button>
+    </div>
+
+    <!-- Formulaire d'ajout d'un administrateur en haut de la liste, affiché si newAdmin est vrai -->
+    <div *ngIf="newAdmin" class="add-form">
+      <h3>Add Admin</h3>
+      <label for="newName">Name:</label>
+      <input id="newName" [(ngModel)]="newAdmin.name" type="text">
+
+      <label for="newEmail">Email:</label>
+      <input id="newEmail" [(ngModel)]="newAdmin.email" type="email">
+
+      <button (click)="saveNewAdmin()">Save</button>
+      <button (click)="cancelAdd()">Cancel</button>
+    </div>
+
+    <!-- Formulaire de modification, affiché si adminEnCours est défini -->
+    <div *ngIf="adminEnCours" class="edit-form">
+      <h3>Edit Admin</h3>
+      <label for="name">Name:</label>
+      <input id="name" [(ngModel)]="adminEnCours.name" type="text">
+
+      <label for="email">Email:</label>
+      <input id="email" [(ngModel)]="adminEnCours.email" type="email">
+
+      <button (click)="modifierAdmin()">Save</button>
+      <button (click)="annulerModification()">Cancel</button>
+    </div>
+
+    <!-- Tableau des administrateurs -->
+    <table *ngIf="admins.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let admin of admins">
+          <td>{{ admin.id }}</td>
+          <td>{{ admin.name }}</td>
+          <td>{{ admin.email }}</td>
+          <td>
+            <button (click)="editAdmin(admin.id)">
+              <i class="fa-solid fa-pencil"></i> Edit </button>
+            <button (click)="deleteAdmin(admin.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="admins.length === 0">No administrators found.</p>
+  </div>
+</div>
