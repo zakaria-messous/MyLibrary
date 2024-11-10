@@ -51,6 +51,7 @@ h2 {
   color: #333;
 }
 
+/* Table styling */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -62,6 +63,7 @@ th, td {
   text-align: left;
 }
 
+/* Button styling */
 button {
   margin: 5px;
   padding: 5px 10px;
@@ -73,4 +75,42 @@ button {
 
 button:hover {
   background-color: #f45709;
+}
+
+/* Header container for Add button and Search bar */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Search bar container with icon */
+.search-container {
+  position: relative;
+  max-width: 300px;
+  width: 100%;
+}
+
+.search-container input[type="text"] {
+  width: 100%;
+  padding: 8px 35px 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+}
+
+.search-container .search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #777;
+}
+
+/* Add button styling */
+.add-button-container {
+  margin-right: 10px;
 }

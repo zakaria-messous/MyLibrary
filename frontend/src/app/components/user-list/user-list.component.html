@@ -4,12 +4,21 @@
   <div class="container">
     <h2>User List</h2>
 
-    <!-- Bouton Ajouter utilisateur en haut à droite, affiché seulement si le formulaire n'est pas visible -->
-    <div class="add-button-container" *ngIf="!newUser && !userEnCours">
-      <button (click)="addUser()">Add User</button>
+    <!-- Container pour le bouton et la barre de recherche -->
+    <div class="header-container">
+      <!-- Bouton Ajouter utilisateur à gauche -->
+      <div class="add-button-container" *ngIf="!newUser && !userEnCours">
+        <button (click)="addUser()">Add User</button>
+      </div>
+
+      <!-- Barre de recherche avec icône à droite -->
+      <div class="search-container">
+        <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" (input)="searchUser()" />
+        <i class="fa-solid fa-search search-icon"></i> <!-- Icône de recherche -->
+      </div>
     </div>
 
-    <!-- Formulaire d'ajout d'un utilisateur en haut de la liste, affiché si newUser est vrai -->
+    <!-- Formulaire d'ajout d'un utilisateur -->
     <div *ngIf="newUser" class="add-form">
       <h3>Add User</h3>
       <label for="newUserName">Name:</label>
@@ -28,7 +37,7 @@
       <button (click)="cancelAdd()">Cancel</button>
     </div>
 
-    <!-- Formulaire de modification, affiché si userEnCours est défini -->
+    <!-- Formulaire de modification -->
     <div *ngIf="userEnCours" class="edit-form">
       <h3>Edit User</h3>
       <label for="editUserName">Name:</label>
@@ -47,8 +56,8 @@
       <button (click)="cancelEdit()">Cancel</button>
     </div>
 
-    <!-- Tableau des utilisateurs -->
-    <table *ngIf="users.length > 0">
+    <!-- Tableau des utilisateurs filtrés -->
+    <table *ngIf="filteredUsers.length > 0">
       <thead>
         <tr>
           <th>ID</th>
@@ -59,21 +68,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users">
+        <tr *ngFor="let user of filteredUsers">
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.booksBorrowed }}</td>
-          <td>{{ user.returnDate | date:'MM/dd/yyyy' }}</td> <!-- Format date en anglais -->
+          <td>{{ user.returnDate | date:'MM/dd/yyyy' }}</td>
           <td>
-            <button (click)="editUser(user.id)">
-              Edit
-            </button>
+            <button (click)="editUser(user.id)">Edit</button>
             <button (click)="deleteUser(user.id)">Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
-    <p *ngIf="users.length === 0">No users found.</p>
+    <p *ngIf="filteredUsers.length === 0">No users found.</p>
   </div>
 </div>

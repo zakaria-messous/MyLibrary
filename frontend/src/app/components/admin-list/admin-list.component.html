@@ -4,9 +4,18 @@
   <div class="container">
     <h2>Admin List</h2>
 
-    <!-- Bouton Ajouter administrateur en haut à droite, affiché seulement si le formulaire n'est pas visible -->
-    <div class="add-button-container" *ngIf="!newAdmin && !adminEnCours">
-      <button (click)="addAdmin()">Add Admin</button>
+    <!-- Container pour le bouton et la barre de recherche -->
+    <div class="header-container">
+      <!-- Bouton Ajouter administrateur à gauche -->
+      <div class="add-button-container" *ngIf="!newAdmin && !adminEnCours">
+        <button (click)="addAdmin()">Add Admin</button>
+      </div>
+
+      <!-- Barre de recherche avec icône à droite -->
+      <div class="search-container">
+        <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" (input)="searchAdmin()" />
+        <i class="fa-solid fa-search search-icon"></i> <!-- Icône de recherche -->
+      </div>
     </div>
 
     <!-- Formulaire d'ajout d'un administrateur en haut de la liste, affiché si newAdmin est vrai -->
@@ -35,8 +44,8 @@
       <button (click)="annulerModification()">Cancel</button>
     </div>
 
-    <!-- Tableau des administrateurs -->
-    <table *ngIf="admins.length > 0">
+    <!-- Tableau des administrateurs filtré -->
+    <table *ngIf="filteredAdmins.length > 0">
       <thead>
         <tr>
           <th>ID</th>
@@ -45,18 +54,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let admin of admins">
+        <tr *ngFor="let admin of filteredAdmins">
           <td>{{ admin.id }}</td>
           <td>{{ admin.name }}</td>
           <td>{{ admin.email }}</td>
           <td>
             <button (click)="editAdmin(admin.id)">
-              <i class="fa-solid fa-pencil"></i> Edit </button>
+              <i class="fa-solid fa-pencil"></i> Edit
+            </button>
             <button (click)="deleteAdmin(admin.id)">Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
-    <p *ngIf="admins.length === 0">No administrators found.</p>
+    <p *ngIf="filteredAdmins.length === 0">No administrators found.</p>
   </div>
 </div>

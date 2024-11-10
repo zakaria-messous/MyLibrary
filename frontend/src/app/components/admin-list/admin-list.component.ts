@@ -13,36 +13,42 @@ import { SidenavComponent } from '../sidenav/sidenav.component';
   styleUrls: ['./admin-list.component.css']
 })
 export class AdminListComponent {
-  // Liste des administrateurs avec des informations statiques
   admins = [
     { id: 1, name: 'John Doe', email: 'john@example.com' },
     { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
     { id: 3, name: 'James Brown', email: 'james@example.com' }
   ];
 
-  // Propriétés pour l'ajout et la modification
+  // Variable de recherche
+  searchTerm: string = '';
+  filteredAdmins = [...this.admins];
+
   adminEnCours: { id: number, name: string, email: string } | null = null;
   newAdmin: { name: string, email: string } | null = null;
-  
-  // Propriété temporaire utilisée pour le binding ngModel
-  adminForm: { name: string, email: string } = { name: '', email: '' };
+
+  // Méthode pour filtrer les administrateurs en fonction du texte de recherche
+  searchAdmin(): void {
+    const search = this.searchTerm.toLowerCase();
+    this.filteredAdmins = this.admins.filter(
+      admin =>
+        admin.name.toLowerCase().includes(search) || // Recherche par nom
+        admin.email.toLowerCase().includes(search)   // Recherche par email
+    );
+  }
 
   // Méthode pour initialiser la modification d'un administrateur
   editAdmin(adminId: number): void {
     const admin = this.admins.find(a => a.id === adminId);
     if (admin) {
-      // Clonage de l'objet pour éviter la modification directe
       this.adminEnCours = { ...admin };
-      this.adminForm = { ...admin };  // Charger les données dans le formulaire
       console.log(`Editing admin with ID ${adminId}`);
     }
   }
 
   // Méthode pour initialiser l'ajout d'un nouvel administrateur
   addAdmin(): void {
-    this.newAdmin = { name: '', email: '' }; // Réinitialiser pour ajouter un nouvel administrateur
-    this.adminEnCours = null; // Réinitialiser la modification si présente
-    this.adminForm = { name: '', email: '' }; // Réinitialiser le formulaire
+    this.newAdmin = { name: '', email: '' };
+    this.adminEnCours = null;
     console.log('Adding a new admin');
   }
 
@@ -51,12 +57,10 @@ export class AdminListComponent {
     if (this.adminEnCours) {
       const index = this.admins.findIndex(admin => admin.id === this.adminEnCours!.id);
       if (index !== -1) {
-        // Mettre à jour l'administrateur dans la liste
         this.admins[index] = { ...this.adminEnCours };
         console.log(`Admin with ID ${this.adminEnCours.id} modified.`);
-        // Réinitialiser adminEnCours après modification
         this.adminEnCours = null;
-        this.adminForm = { name: '', email: '' }; // Réinitialiser le formulaire
+        this.searchAdmin(); // Mettre à jour la liste filtrée après modification
       }
     }
   }
@@ -65,33 +69,31 @@ export class AdminListComponent {
   saveNewAdmin(): void {
     if (this.newAdmin) {
       const newAdmin = {
-        id: this.admins.length + 1,  // Génération de l'ID
+        id: this.admins.length + 1,
         name: this.newAdmin.name,
         email: this.newAdmin.email
       };
-      this.admins.push(newAdmin); // Ajouter l'administrateur à la liste
+      this.admins.push(newAdmin);
       console.log(`Admin with ID ${newAdmin.id} added.`);
-      // Réinitialiser le formulaire après ajout
       this.newAdmin = null;
-      this.adminForm = { name: '', email: '' }; // Réinitialiser le formulaire
+      this.searchAdmin(); // Mettre à jour la liste filtrée après ajout
     }
   }
 
   // Méthode pour annuler l'ajout
   cancelAdd(): void {
     this.newAdmin = null;
-    this.adminForm = { name: '', email: '' }; // Réinitialiser le formulaire
   }
 
-  // Méthode pour annuler la modification et réinitialiser le formulaire
+  // Méthode pour annuler la modification
   annulerModification(): void {
     this.adminEnCours = null;
-    this.adminForm = { name: '', email: '' }; // Réinitialiser le formulaire
   }
 
-  // Méthode pour supprimer un administrateur de la liste
+  // Méthode pour supprimer un administrateur
   deleteAdmin(adminId: number): void {
     this.admins = this.admins.filter(admin => admin.id !== adminId);
     console.log(`Admin with ID ${adminId} deleted.`);
+    this.searchAdmin(); // Mettre à jour la liste filtrée après suppression
   }
 }
