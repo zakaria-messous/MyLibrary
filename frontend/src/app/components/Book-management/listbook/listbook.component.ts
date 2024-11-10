@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { SidenavComponent } from "../../sidenav/sidenav.component";
 import { NavComponent } from "../../nav/nav.component";
-import { Product } from '../../../models/product';
+import { Livre } from '../../../models/livre';
 import { ImportsModule } from '../../../../imports';
 import { ProductService } from '../../../services/productService';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -9,135 +9,118 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 @Component({
   selector: 'app-listbook',
   standalone: true,
-  imports: [SidenavComponent, NavComponent,ImportsModule
-    
-  ],
+  imports: [SidenavComponent, NavComponent, ImportsModule],
   providers: [MessageService, ConfirmationService, ProductService],
-  templateUrl:'./listbook.component.html',
-  styleUrl: './listbook.component.css'
+  templateUrl: './listbook.component.html',
+  styleUrls: ['./listbook.component.css']
 })
-export class ListbookComponent implements OnInit{
-  productDialog: boolean = false;
-
-  products!: Product[];
-
-  product!: Product;
-
-  selectedProducts!: Product[] | null;
-
+export class ListbookComponent implements OnInit {
+  livreDialog: boolean = false;
+  livres!: Livre[];
+  livre!: Livre;
+  selectedLivres!: Livre[] | null;
   submitted: boolean = false;
+  categories!: any[];
 
-  statuses!: any[];
-
-  constructor(private productService: ProductService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
+  constructor(
+    @Inject(ProductService) private productService: ProductService, 
+    private messageService: MessageService, 
+    private confirmationService: ConfirmationService
+  ) {}
 
   ngOnInit() {
-      this.productService.getProducts().then((data) => (this.products = data));
-
-      this.statuses = [
-          { label: 'INSTOCK', value: 'instock' },
-          { label: 'LOWSTOCK', value: 'lowstock' },
-          { label: 'OUTOFSTOCK', value: 'outofstock' }
-      ];
+    this.productService.getLivres().then((data) => (this.livres = data));
+    this.categories = [
+      { label: 'Roman', value: 'roman' },
+      { label: 'Science-fiction', value: 'science-fiction' },
+      { label: 'Fantastique', value: 'fantastique' }
+    ];
   }
 
   openNew() {
-      this.product = {};
-      this.submitted = false;
-      this.productDialog = true;
+    this.livre = {};
+    this.submitted = false;
+    this.livreDialog = true;
   }
 
-  deleteSelectedProducts() {
-      this.confirmationService.confirm({
-          message: 'Are you sure you want to delete the selected products?',
-          header: 'Confirm',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-              this.products = this.products.filter((val) => !this.selectedProducts?.includes(val));
-              this.selectedProducts = null;
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-          }
-      });
+  deleteSelectedLivres() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete the selected books?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.livres = this.livres.filter((val) => !this.selectedLivres?.includes(val));
+        this.selectedLivres = null;
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Books Deleted', life: 3000 });
+      }
+    });
   }
 
-  editProduct(product: Product) {
-      this.product = { ...product };
-      this.productDialog = true;
+  editLivre(livre: Livre) {
+    this.livre = { ...livre };
+    this.livreDialog = true;
   }
 
-  deleteProduct(product: Product) {
-      this.confirmationService.confirm({
-          message: 'Are you sure you want to delete ' + product.name + '?',
-          header: 'Confirm',
-          icon: 'pi pi-exclamation-triangle',
-          accept: () => {
-              this.products = this.products.filter((val) => val.id !== product.id);
-              this.product = {};
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-          }
-      });
+  deleteLivre(livre: Livre) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + livre.titre + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.livres = this.livres.filter((val) => val.id !== livre.id);
+        this.livre = {};
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Book Deleted', life: 3000 });
+      }
+    });
   }
 
   hideDialog() {
-      this.productDialog = false;
-      this.submitted = false;
+    this.livreDialog = false;
+    this.submitted = false;
   }
 
-  saveProduct() {
-      this.submitted = true;
-
-      if (this.product.name?.trim()) {
-          if (this.product.id) {
-              this.products[this.findIndexById(this.product.id)] = this.product;
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-          } else {
-              this.product.id = this.createId();
-              this.product.image = 'product-placeholder.svg';
-              this.products.push(this.product);
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
-          }
-
-          this.products = [...this.products];
-          this.productDialog = false;
-          this.product = {};
+  saveLivre() {
+    this.submitted = true;
+    if (this.livre.titre?.trim()) {
+      if (this.livre.id) {
+        this.livres[this.findIndexById(this.livre.id)] = this.livre;
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Book Updated', life: 3000 });
+      } else {
+        this.livre.id = this.createId();
+        this.livres.push(this.livre);
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Book Created', life: 3000 });
       }
+      this.livres = [...this.livres];
+      this.livreDialog = false;
+      this.livre = {};
+    }
+  }
+
+  onImageUpload(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.livre.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   findIndexById(id: string): number {
-      let index = -1;
-      for (let i = 0; i < this.products.length; i++) {
-          if (this.products[i].id === id) {
-              index = i;
-              break;
-          }
-      }
-
-      return index;
+    return this.livres.findIndex((livre) => livre.id === id);
   }
 
   createId(): string {
-      let id = '';
-      var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      for (var i = 0; i < 5; i++) {
-          id += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return id;
-  }
-
-  getSeverity(inventoryStatus: string | undefined): "success" | "warning" | "danger" | "info" {
-    switch (inventoryStatus) {
-        case 'In Stock':
-            return 'success';
-        case 'Low Stock':
-            return 'warning';
-        case 'Out of Stock':
-            return 'danger';
-        case 'unknown':
-            return 'info';
-        default:
-            return 'info'; // Return 'info' or any other fallback severity if the status is unrecognized
+    let id = '';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 5; i++) {
+      id += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-}
-
-  
+    return id;
   }
+
+  getSeverity(disponibilite: boolean | undefined): "success" | "danger" {
+    return disponibilite ? 'success' : 'danger';
+  }
+}
