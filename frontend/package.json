@@ -27,6 +27,7 @@
     "@coreui/coreui": "^5.2.0",
     "@coreui/icons-angular": "~5.2.22",
     "@popperjs/core": "~2.11.8",
+    "chart.js": "^4.4.6",
     "express": "^4.18.2",
     "font-awesome": "^4.7.0",
     "rxjs": "~7.8.0",

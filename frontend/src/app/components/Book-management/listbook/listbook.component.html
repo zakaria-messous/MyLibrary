@@ -1,0 +1,114 @@
+
+<app-sidenav></app-sidenav>
+<div class="content">
+  <app-nav></app-nav>
+
+  <div class="card">
+    <p-toast></p-toast>
+    <p-toolbar styleClass="mb-4 gap-2">
+      <ng-template pTemplate="left">
+        <p-button severity="success" label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+        <p-button severity="danger" label="Delete" icon="pi pi-trash" (onClick)="deleteSelectedLivres()" [disabled]="!selectedLivres || !selectedLivres.length" />
+      </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="livres" [rows]="10" [paginator]="true" [globalFilterFields]="['titre', 'auteur', 'categorie']" [tableStyle]="{ 'min-width': '75rem' }" [(selection)]="selectedLivres" [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          <h5 class="m-0">Manage Books</h5>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th pSortableColumn="titre" style="min-width:15rem">Title Book <p-sortIcon field="titre"></p-sortIcon></th>
+          <th>Image Book</th>
+          <th pSortableColumn="prix">Price Book <p-sortIcon field="prix"></p-sortIcon></th>
+          <th pSortableColumn="categorie" style="min-width:10rem">Category Book <p-sortIcon field="categorie"></p-sortIcon></th>
+          <th pSortableColumn="disponibilite" style="min-width:10rem">Availability <p-sortIcon field="disponibilite"></p-sortIcon></th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-livre>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="livre"></p-tableCheckbox>
+          </td>
+          <td>{{ livre.titre }}</td>
+          <td><img [src]="livre.image" [alt]="livre.titre" width="50" class="shadow-4"></td>
+          <td>{{ livre.prix | currency : 'USD' }}</td>
+          <td>{{ livre.categorie }}</td>
+          <td><p-tag [value]="livre.disponibilite ? 'Available' : 'Not Available'" [severity]="getSeverity(livre.disponibilite)"></p-tag></td>
+          <td>
+            <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success" (onClick)="editLivre(livre)"></p-button>
+            <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (onClick)="deleteLivre(livre)"></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <p-dialog [(visible)]="livreDialog" [style]="{ width: '450px' }" header="Book Details" [modal]="true" styleClass="p-fluid">
+      <ng-template pTemplate="content">
+        <div class="field">
+          <label for="titre">
+            Title Book</label>
+            <input type="text" pInputText id="titre" [(ngModel)]="livre.titre" required autofocus />
+            <small class="p-error" *ngIf="submitted && !livre.titre">Title is required.</small>
+          </div>
+  
+          <div class="field">
+            <label for="auteur">Author</label>
+            <input type="text" pInputText id="auteur" [(ngModel)]="livre.auteur" required />
+            <small class="p-error" *ngIf="submitted && !livre.auteur">Author is required.</small>
+          </div>
+  
+          <div class="field">
+            <label for="description">Book details</label>
+            <textarea id="description" pInputTextarea [(ngModel)]="livre.description" required rows="3" cols="20"></textarea>
+            <small class="p-error" *ngIf="submitted && !livre.description">Description is required.</small>
+          </div>
+  
+          <div class="field">
+            <label for="disponibilite">Availability</label>
+            <p-dropdown [(ngModel)]="livre.disponibilite" inputId="disponibilite" [options]="[{label: 'Available', value: true}, {label: 'Not Available', value: false}]">
+            </p-dropdown>
+          </div>
+  
+          <div class="field">
+            <label for="categorie">Category</label>
+            <input type="text" pInputText id="categorie" [(ngModel)]="livre.categorie" required />
+            <small class="p-error" *ngIf="submitted && !livre.categorie">Category is required.</small>
+          </div>
+          
+  
+          <div class="formgrid grid">
+            <div class="field col">
+              <label for="prix">Price</label>
+              <p-inputNumber id="prix" [(ngModel)]="livre.prix" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+            </div>
+            <div class="field col">
+              <label for="nombreCopieDispo">Number of Copies Available</label>
+              <p-inputNumber id="nombreCopieDispo" [(ngModel)]="livre.nombreCopieDispo"></p-inputNumber>
+            </div>
+          </div>
+  
+          <div class="field">
+            <label for="image">Image Book</label>
+            <input type="file" id="image" (change)="onImageUpload($event)" />
+          </div>
+        </ng-template>
+  
+        <ng-template pTemplate="footer">
+          <p-button label="Cancel" icon="pi pi-times" [text]="true" (onClick)="hideDialog()"></p-button>
+          <p-button label="Save" icon="pi pi-check" [text]="true" (onClick)="saveLivre()"></p-button>
+        </ng-template>
+      </p-dialog>
+  
+      <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+    </div>
+  </div>
