@@ -25,10 +25,16 @@ export class HomeComponent implements OnInit {
   }
 
   onLivreClick(livre: Livre) {
+  if (livre.disponibilite) {
+    // Ouvrir les détails du livre uniquement si il est disponible
+    console.log('Ouvrir les détails du livre:', livre.titre);
     this.dialog.open(BookDetailsComponent, {
       width: '600px',
       data: livre,
     });
+  } else {
+    console.log('Ce livre est en rupture de stock');
+    // Vous pouvez également afficher un message d'alerte ou rediriger l'utilisateur.
   }
 }
-
+}

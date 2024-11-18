@@ -2,8 +2,8 @@
 
 <div class="hero-image">
   <div class="hero-text">
-    <h1>Bienvenue sur notre Bibliothèque</h1>
-    <p>Découvrez les meilleurs livres ici.</p>
+    <h1>Wlecome to Your Library</h1>
+    <p>Descover Tahe Best Books Here .</p>
   </div>
 </div>
 
@@ -11,6 +11,11 @@
 <div class="book-list">
   <div *ngFor="let livre of livres" class="book-item" (click)="onLivreClick(livre)">
     <img [src]="'assets/images/' + livre.image" alt="{{ livre.titre }}" />
+    
+    <!-- Afficher l'image "Rupture de stock" si le livre est en rupture -->
+    <div *ngIf="!livre.disponibilite" class="out-of-stock">
+    </div>
+    
     <h3>{{ livre.titre }}</h3>
     <p>{{ livre.auteur }}</p>
   </div>

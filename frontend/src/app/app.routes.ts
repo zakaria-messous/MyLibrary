@@ -8,6 +8,8 @@ import { ListbookComponent } from './components/Book-management/listbook/listboo
 import { HomeComponent } from './components/home/home.component';
 import { AdminListComponent } from './components/admin-list/admin-list.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+
 export const routes: Routes = [
   { path: 'app-dashbord-admin', component: DashbordAdminComponent },
   { path: 'login', component: LoginComponent },
@@ -16,4 +18,5 @@ export const routes: Routes = [
   { path: 'app-user-list', component: UserListComponent },
   { path: 'admin-list', component: AdminListComponent },
   { path: '', component: HomeComponent },
+  { path: 'confirmation', component: ConfirmationComponent },
 ];

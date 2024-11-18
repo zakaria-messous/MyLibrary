@@ -1,0 +1,14 @@
+<div class="confirmation-container">
+    <h2>Confirmation</h2>
+    <div class="book-details">
+      <h3>{{ livre.titre }}</h3>
+      <img [src]="'assets/images/' + livre.image" alt="{{ livre.titre }}" />
+      <p><span>Author :</span> {{ livre.auteur }}</p>
+      <p><span>Description :</span> {{ livre.description }}</p>
+      <p><span>Price :</span> {{ livre.prix }} €</p>
+      <p><span>Disponibility :</span> {{ livre.disponibilite ? 'En stock' : 'Out Of Stock' }}</p>
+    </div>
+  
+    <button (click)="confirmReservation()">Confirm the Reservation </button>
+  </div>
+  

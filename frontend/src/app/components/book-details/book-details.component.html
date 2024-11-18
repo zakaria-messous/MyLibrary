@@ -1,10 +1,10 @@
 <div class="book-details">
     <h2>{{ livre.titre }}</h2>
     <img [src]="'assets/images/' + livre.image" alt="{{ livre.titre }}" />
-    <p>Auteur : {{ livre.auteur }}</p>
+    <p>Author : {{ livre.auteur }}</p>
     <p>Description : {{ livre.description }}</p>
-    <p>Prix : {{ livre.prix }} €</p>
-    <p>Disponibilité : {{ livre.disponibilite ? 'En stock' : 'Indisponible' }}</p>
+    <p>Price : {{ livre.prix }} €</p>
+    <p>Disponibility : {{ livre.disponibilite ? 'En stock' : 'Out Of stock' }}</p>
     <div class="add-to-cart" (click)="addToCart()"></div>
 </div>
   
