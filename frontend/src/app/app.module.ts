@@ -7,7 +7,7 @@ import { routes } from './app.routes'; // Import routes from your routing file
 import { TableModule } from 'primeng/table';
 import { ImportsModule } from '../imports';
 import { ProductService } from './services/productService';
-
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { ProductService } from './services/productService';
   imports: [
     BrowserModule,
     ImportsModule,
-    
+    MatDialogModule,
     RouterModule.forRoot(routes) // Ensure the routes are passed to RouterModule.forRoot() correctly
   ],
   providers: [ProductService],

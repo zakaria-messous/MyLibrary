@@ -1,18 +1,19 @@
-import { Component, Input } from '@angular/core';
-
+import { Component, Inject, Input } from '@angular/core';
+import { Livre } from '../../models/livre';
+import { CommonModule } from '@angular/common';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-book-details',
   standalone: true,
   templateUrl: './book-details.component.html',
-  styleUrls: ['./book-details.component.css']
+  styleUrls: ['./book-details.component.css'],
+  imports: [CommonModule]
+
 })
 export class BookDetailsComponent {
-  @Input() title!: string;
-  @Input() author!: string;
-  @Input() description!: string;
-  @Input() image!: string;
+  constructor(@Inject(MAT_DIALOG_DATA) public livre: Livre) {}
 
   addToCart() {
-    console.log(`${this.title} a été ajouté au panier.`);
+    console.log(`Livre ajouté au panier : ${this.livre.titre}`);
   }
 }

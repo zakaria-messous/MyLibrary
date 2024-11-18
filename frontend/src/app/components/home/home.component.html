@@ -7,24 +7,11 @@
   </div>
 </div>
 
+<!-- Liste des livres -->
 <div class="book-list">
-  <div *ngFor="let book of books">
-    <app-book
-      [title]="book.title"
-      [author]="book.author"
-      [description]="book.description"
-      [image]="book.image"
-      (bookClicked)="onBookClick(book)"
-    ></app-book>
+  <div *ngFor="let livre of livres" class="book-item" (click)="onLivreClick(livre)">
+    <img [src]="'assets/images/' + livre.image" alt="{{ livre.titre }}" />
+    <h3>{{ livre.titre }}</h3>
+    <p>{{ livre.auteur }}</p>
   </div>
-</div>
-
-<!-- Afficher BookDetailsComponent si un livre est sélectionné -->
-<div *ngIf="selectedBook">
-  <app-book-details
-    [title]="selectedBook.title"
-    [author]="selectedBook.author"
-    [description]="selectedBook.description"
-    [image]="selectedBook.image"
-  ></app-book-details>
 </div>
