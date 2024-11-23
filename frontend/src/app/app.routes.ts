@@ -9,6 +9,8 @@ import { HomeComponent } from './components/home/home.component';
 import { AdminListComponent } from './components/admin-list/admin-list.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { MyBooksComponent } from './components/mybooks/mybooks.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   { path: 'app-dashbord-admin', component: DashbordAdminComponent },
@@ -19,4 +21,7 @@ export const routes: Routes = [
   { path: 'admin-list', component: AdminListComponent },
   { path: '', component: HomeComponent },
   { path: 'confirmation', component: ConfirmationComponent },
+  { path: 'profile', component:ProfileComponent },
+  { path: 'mybooks', component: MyBooksComponent,pathMatch: 'full'  },
+
 ];

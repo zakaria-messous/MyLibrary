@@ -3,58 +3,143 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f45709;
+  background: linear-gradient(90deg, #254363, #122A44); /* Dégradé attractif */
   color: white;
-  padding: 10px 20px;
+  padding: 15px 30px;
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Ombre légère */
+  position: relative;
+  transition: all 0.3s ease-in-out; /* Transition douce pour les effets */
 }
 
-.navbar-left .menu-button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
+/* Animation du hover sur la navbar */
+.navbar:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px); /* Légère élévation */
+}
+
+/* Titre de la navbar */
+.navbar h2 {
+  font-family: 'Arial', sans-serif;
+  font-size: 28px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espacement avec le logo */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  transition: color 0.3s ease; /* Transition de couleur */
 }
 
+.navbar h2:hover {
+  color: #2592AE; /* Changer la couleur au survol */
+}
+
+/* Style du champ de recherche */
+.search-input {
+  width: 300px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+}
+
+/* Animation au focus du champ de recherche */
+.search-input:focus {
+  border-color: #2592AE;
+  box-shadow: 0 0 5px rgba(244, 87, 9, 0.5);
+}
+
+/* Section des boutons dans la navbar */
 .navbar-center {
-  flex-grow: 1;
-  text-align: center;
-  font-size: 18px;
+  display: flex;
+  align-items: center;
 }
 
+.navbar-center span {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar-center span:hover {
+  color: #444;
+}
+
+.navbar-center button {
+  background: #ffffff;
+  color: #851E38;
+  border: 2px solid #fEFEFE;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: all 0.3s ease;
+}
+
+.navbar-center button:hover {
+  background: #851E38;
+  color: white;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Section à droite de la navbar */
 .navbar-right {
   display: flex;
-  align-items: center;             /* Alignement vertical des éléments */
-  justify-content: flex-end;       /* Aligne tout à droite */
-  gap: 10px;                       /* Espacement entre "Hi, Admin" et l'icône */
-  position: absolute;              /* Position absolue pour aligner à l'extrême droite */
-  right: 20px;                     /* Marge à droite */
+  align-items: center;
+  gap: 20px;
 }
 
 .material-icons {
-  font-size: 30px;
+  font-size: 35px;
   cursor: pointer;
-  margin-left: 15px;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
+.material-icons:hover {
+  transform: scale(1.2);
+  color: #851E38; /* Couleur du dégradé */
+}
+
+/* Menu déroulant (commenté pour l'instant) */
 .profile-menu {
   position: absolute;
-  top: 35px; /* Positionne le menu sous l'icône */
-  right: 0;
+  top: 60px;
+  right: 30px;
   background-color: #444;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 150px;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  width: 180px;
   z-index: 1000;
+  overflow: hidden;
 }
 
 .profile-menu-item {
-  padding: 10px;
+  padding: 12px 15px;
   text-align: center;
   cursor: pointer;
   color: white;
+  transition: background-color 0.3s ease;
 }
 
 .profile-menu-item:hover {
   background-color: #555;
+}
+
+/* Logo dans la navbar */
+.sidenav h2 {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  padding-left: 70px;
+  background: url('../../../assets/logo.jpeg') no-repeat left center;
+  background-size: 60px 60px;
+  line-height: 50px;
 }

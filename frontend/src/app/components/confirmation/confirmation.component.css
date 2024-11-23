@@ -35,7 +35,7 @@
   /* Style pour le titre du livre */
   .book-details h3 {
     font-size: 1.8rem;
-    color: #f45709;
+    color: #851E38;
     margin-bottom: 10px;
     text-align: center;
   }
@@ -65,7 +65,7 @@
   
   /* Bouton de confirmation */
   button {
-    background-color: #f45709;
+    background-color: #851E38;
     color: #fff;
     font-size: 1.1rem;
     padding: 12px 20px;
@@ -81,7 +81,7 @@
   
   /* Effet au survol du bouton */
   button:hover {
-    background-color: #f45709;
+    background-color: #851E38;
     transform: translateY(-3px);
   }
   
