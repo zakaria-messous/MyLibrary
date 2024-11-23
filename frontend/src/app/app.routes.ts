@@ -11,6 +11,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { MyBooksComponent } from './components/mybooks/mybooks.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { BookshopComponent } from './components/bookshop/bookshop.component';
 
 export const routes: Routes = [
   { path: 'app-dashbord-admin', component: DashbordAdminComponent },
@@ -23,5 +24,5 @@ export const routes: Routes = [
   { path: 'confirmation', component: ConfirmationComponent },
   { path: 'profile', component:ProfileComponent },
   { path: 'mybooks', component: MyBooksComponent,pathMatch: 'full'  },
-
+  { path: 'bookshop', component: BookshopComponent },
 ];
