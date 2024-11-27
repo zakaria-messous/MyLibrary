@@ -1,0 +1,116 @@
+.hero-banner {
+    background: linear-gradient(to right, #254363, #122A44);
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 15px;
+    margin: 20px auto;
+  }
+  
+  .hero-banner h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .hero-banner p {
+    font-size: 1.2rem;
+  }
+  .filter-container {
+    margin: 30px auto;
+    text-align: center;
+    background-color: #f4f8fc;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .filter-container label {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #851E38;
+    margin-right: 10px;
+  }
+  
+  .filter-container select {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 20px;
+    border: 2px solid #851E38;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-container select:hover {
+    border-color: #254363;
+    background-color: #f0f8ff;
+  }
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px;
+  }
+  
+  .book-card {
+    background: linear-gradient(to bottom, #ffffff, #f4f8fc);
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .book-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .book-card:hover .card-image img {
+    transform: scale(1.05);
+  }
+  
+  .card-content {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .card-content h3 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    color: #2575fc;
+  }
+  
+  .card-content p {
+    color: #7f8c8d;
+    margin: 5px 0;
+  }
+  
+  .card-content strong {
+    color: #254363;
+  }
+  .out-of-stock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 0, 0, 0.8);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border-radius: 15px;
+  }
+        

@@ -19,7 +19,7 @@ export class ProductService {
         disponibilite: true,
         nombreCopieDispo: 10,
         prix: 15,
-        categorie: 'Roman',
+        categorieId: 1,
         image: 'le-petit-prince.jpg'
       },
       {
@@ -30,7 +30,7 @@ export class ProductService {
         disponibilite: false,
         nombreCopieDispo: 0,
         prix: 20,
-        categorie: 'Science-fiction',
+        categorieId: 2,
         image: '1984.jpg'
       },
       {
@@ -41,7 +41,7 @@ export class ProductService {
         disponibilite: true,
         nombreCopieDispo: 10,
         prix: 15,
-        categorie: 'Roman',
+        categorieId: 1,
         image: 'le-petit-prince.jpg'
       },
       {
@@ -52,7 +52,7 @@ export class ProductService {
         disponibilite: false,
         nombreCopieDispo: 0,
         prix: 20,
-        categorie: 'Science-fiction',
+        categorieId: 2,
         image: '1984.jpg'
       },
       {
@@ -63,7 +63,7 @@ export class ProductService {
         disponibilite: true,
         nombreCopieDispo: 10,
         prix: 15,
-        categorie: 'Roman',
+        categorieId: 1,
         image: 'le-petit-prince.jpg'
       },
       {
@@ -74,7 +74,7 @@ export class ProductService {
         disponibilite: false,
         nombreCopieDispo: 0,
         prix: 20,
-        categorie: 'Science-fiction',
+        categorieId: 2,
         image: '1984.jpg'
       }
       // Ajoute plus de livres selon les besoins

@@ -1,49 +1,108 @@
+/* Section Hero Image */
 .hero-image {
-    background-image: url('../../../assets/4.png');
-    height: 600px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    animation: fadeIn 2s ease-in-out;
+  background-image: url('../../../assets/4.png');
+  height: 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  animation: fadeIn 2s ease-in-out;
+  filter: brightness(0.7); /* Assombrir l'image */
+}
+
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  animation: slideUp 1.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-/* Liste des livres */
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translate(-50%, 50%);
+  }
+  to {
+    transform: translate(-50%, -50%);
+  }
+}
+
+.best-sellers {
+  background-color: #122A44; /* Changer la couleur de fond en bleu vif */
+  color: white;
+  padding: 40px;
+  text-align: center;
+  margin-top: 20px;
+  border-radius: 10px; /* Ajouter des bords arrondis */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 2s ease-in-out;
+}
+
+.best-sellers h2 {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
 .book-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   padding: 40px 20px;
+  animation: fadeIn 2s ease-in-out;
 }
 
 .book-item {
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 15px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .book-item:hover {
   transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .book-item img {
   width: 100%;
   height: 300px;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.book-item:hover img {
+  transform: scale(1.1); /* Zoomer l'image au survol */
 }
 
 .book-item h3 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   margin: 15px 0;
   padding: 0 20px;
   text-align: center;
+  color: #254363;
+  font-weight: bold;
 }
 
 .book-item p {
   font-size: 1rem;
-  color: #777;
+  color: #7f8c8d;
   text-align: center;
   padding: 0 20px 20px;
 }
@@ -53,60 +112,41 @@
 }
 
 .book-item:hover h3 {
-  color: #2c3e50;
+  color: #2592AE; /* Changer la couleur du titre au survol */
 }
 
 .book-item:hover p {
-  color: #7f8c8d;
+  color: #2592AE; /* Changer la couleur de la description au survol */
 }
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  .out-of-stock {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: url('../../../assets/books-img/outofstock.png') no-repeat center center;
-    background-size: cover; /* L'image couvre toute la zone */
-    background-color: rgba(255, 0, 0, 0.7); /* Fond rouge semi-transparent */
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  
-  .book-item {
-    width: 200px;
-    cursor: pointer;
-    text-align: center;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 8px;
-    transition: transform 0.2s;
-  }
-  
-  .book-item:hover {
-    transform: scale(1.05);
-  }
-  
-  .book-details {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
+
+/* Modifier l'affichage de "out-of-stock" au survol */
+.book-item {
+  position: relative; /* Permet à l'élément .out-of-stock de se positionner correctement */
+}
+
+.book-item:hover .out-of-stock {
+  display: flex; /* Afficher l'élément lors du survol */
+}
+
+/* Cibler uniquement les livres en rupture de stock */
+.book-item .out-of-stock {
+  position: absolute; /* Pour que l'élément se positionne au-dessus du livre */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../../../assets/books-img/outofstock.png') no-repeat center center;
+  background-size: cover;
+  background-color: rgba(255, 0, 0, 0.7);
+  border-radius: 10px;
+  display: none; /* Masquer initialement */
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  z-index: 1; /* Assurez-vous que l'image de rupture de stock ne soit pas masquée par d'autres éléments */
+}
+
+
