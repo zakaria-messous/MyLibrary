@@ -1,29 +1,66 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
-- main
+  branches:
+    include:
+      - main  # Déclenche le pipeline sur la branche 'main'
 
-resources:
-- repo: self
+pool:
+  vmImage: 'ubuntu-latest'
 
 variables:
-  tag: '$(Build.BuildId)'
+  JAVA_HOME: '/usr/lib/jvm/java-17-openjdk-amd64'
+  NODE_VERSION: '16.x'
 
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/backend/Dockerfile'
-        tags: |
-          $(tag)
+steps:
+# Étape 1 : Configurer Java pour le backend
+- task: UseJava@1
+  inputs:
+    version: '17'
+  displayName: 'Set up Java 17'
+
+# Étape 2 : Construire le backend (Spring Boot)
+- script: |
+    echo "Building Spring Boot backend"
+    cd backend
+    ./mvnw clean package
+  displayName: 'Build backend with Maven'
+
+# Étape 3 : Tester le backend
+- script: |
+    echo "Running tests for Spring Boot backend"
+    cd backend
+    ./mvnw test
+  displayName: 'Run backend unit tests'
+
+# Étape 4 : Publier les artefacts du backend
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: 'backend/target/*.jar'
+    artifactName: 'backend'
+  displayName: 'Publish backend artifact'
+
+# Étape 5 : Configurer Node.js pour le frontend
+- task: NodeTool@0
+  inputs:
+    versionSpec: '$(NODE_VERSION)'
+  displayName: 'Set up Node.js $(NODE_VERSION)'
+
+# Étape 6 : Installer les dépendances du frontend
+- script: |
+    echo "Installing Angular dependencies"
+    cd frontend
+    npm install
+  displayName: 'Install frontend dependencies'
+
+# Étape 7 : Construire le frontend Angular
+- script: |
+    echo "Building Angular frontend"
+    cd frontend
+    npm run build -- --prod
+  displayName: 'Build frontend'
+
+# Étape 8 : Publier les artefacts du frontend
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: 'frontend/dist'
+    artifactName: 'frontend'
+  displayName: 'Publish frontend artifact'
