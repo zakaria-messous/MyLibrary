@@ -10,7 +10,7 @@ variables:
   NODE_VERSION: '16.x'
 
 steps:
-# Step 1: Manually Install Java for the backend
+# Step 1: Manually Install Java 17
 - script: |
     echo "Installing Java 17"
     sudo apt-get update
@@ -18,21 +18,23 @@ steps:
     java -version
   displayName: 'Install and set up Java 17 manually'
 
-# Step 2: Build the backend (Spring Boot)
+# Step 2: Verify Java Version
+- script: |
+    echo "Verifying Java version"
+    java -version
+  displayName: 'Verify Java Version'
+
+# Step 3: Build the backend (Spring Boot)
 - script: |
     echo "Making Maven Wrapper executable"
     cd backend
     chmod +x mvnw  # Fix permission issue for mvnw
+    echo "Setting JAVA_HOME"
+    export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+    export PATH=$JAVA_HOME/bin:$PATH
     echo "Building Spring Boot backend"
     ./mvnw clean package
   displayName: 'Build backend with Maven'
-
-# Step 3: Test the backend
-- script: |
-    echo "Running tests for Spring Boot backend"
-    cd backend
-    ./mvnw test
-  displayName: 'Run backend unit tests'
 
 # Step 4: Publish backend artifacts
 - task: PublishBuildArtifacts@1
