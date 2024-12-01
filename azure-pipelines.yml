@@ -12,10 +12,11 @@ variables:
 
 steps:
 # Étape 1 : Configurer Java pour le backend
-- task: UseJava@1
-  inputs:
-    version: '17'
-  displayName: 'Set up Java 17'
+- script: |
+    sudo apt-get update
+    sudo apt-get install -y openjdk-17-jdk
+    java -version
+  displayName: 'Install and set up Java 17 manually'
 
 # Étape 2 : Construire le backend (Spring Boot)
 - script: |
