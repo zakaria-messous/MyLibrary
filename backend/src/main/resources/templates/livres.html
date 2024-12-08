@@ -11,6 +11,22 @@
     <h1 class="text-center mb-4">Gestion des Livres</h1>
     <button class="btn btn-danger mb-3" onclick="logout()">Se Déconnecter</button>
 
+    <!-- Ajouter un livre -->
+    <div class="mb-5">
+        <h2>Ajouter un Livre</h2>
+        <form id="addLivreForm" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" id="titre" placeholder="Titre" class="form-control" required>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="auteur" placeholder="Auteur" class="form-control" required>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success w-100">Ajouter</button>
+            </div>
+        </form>
+    </div>
+
     <!-- Liste des livres -->
     <div class="mb-5">
         <h2>Liste des Livres</h2>
@@ -38,7 +54,7 @@
         const token = localStorage.getItem('authToken');
         if (!token) {
             alert('Vous devez vous connecter pour accéder à cette page.');
-            window.location.href = 'login.html';
+            window.location.href = 'login';
         }
     });
 
@@ -53,10 +69,10 @@
         return Promise.reject(error);
     });
 
-    // Bouton de déconnexion
+    // Déconnexion
     function logout() {
         localStorage.removeItem('authToken');
-        window.location.href = 'login.html';
+        window.location.href = 'login';
     }
 
     // Afficher tous les livres
@@ -71,7 +87,9 @@
                             <td>${livre.titre}</td>
                             <td>${livre.auteur}</td>
                             <td>
+                                <button class="btn btn-info btn-sm" onclick="editLivre(${livre.id})">Modifier</button>
                                 <button class="btn btn-danger btn-sm" onclick="deleteLivre(${livre.id})">Supprimer</button>
+                                <button class="btn btn-warning btn-sm" onclick="buyLivre(${livre.id})">Acheter</button>
                             </td>
                         </tr>`;
                     tbody.innerHTML += row;
@@ -80,10 +98,53 @@
             .catch(error => console.error(error));
     });
 
+    // Ajouter un livre
+    document.getElementById('addLivreForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const titre = document.getElementById('titre').value;
+        const auteur = document.getElementById('auteur').value;
+
+        axios.post('/livre', { titre, auteur })
+            .then(() => {
+                alert('Livre ajouté avec succès !');
+                document.getElementById('addLivreForm').reset();
+                document.getElementById('fetchAll').click(); // Refresh the list
+            })
+            .catch(error => console.error(error));
+    });
+
+    // Modifier un livre
+    function editLivre(id) {
+        const newTitle = prompt('Entrez le nouveau titre:');
+        const newAuthor = prompt('Entrez le nouveau auteur:');
+        if (newTitle && newAuthor) {
+            axios.put(`/livre/${id}`, { titre: newTitle, auteur: newAuthor })
+                .then(() => {
+                    alert('Livre modifié avec succès !');
+                    document.getElementById('fetchAll').click(); // Refresh the list
+                })
+                .catch(error => console.error(error));
+        }
+    }
+
     // Supprimer un livre
     function deleteLivre(id) {
-        axios.delete(`/livre/${id}`)
-            .then(() => alert('Livre supprimé avec succès !'))
+        if (confirm('Voulez-vous vraiment supprimer ce livre ?')) {
+            axios.delete(`/livre/${id}`)
+                .then(() => {
+                    alert('Livre supprimé avec succès !');
+                    document.getElementById('fetchAll').click(); // Refresh the list
+                })
+                .catch(error => console.error(error));
+        }
+    }
+
+    // Acheter un livre
+    function buyLivre(id) {
+        axios.post(`/livre/buy/${id}`)
+            .then(() => {
+                alert('Livre acheté avec succès !');
+            })
             .catch(error => console.error(error));
     }
 </script>

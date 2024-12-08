@@ -25,8 +25,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
-            "/admin/login.html",
-            "/login.html"
+            "/admin/livres",
+            "/admin/login",
+            "/images/**",
     };
 
     private final HandlerExceptionResolver handlerExceptionResolver;

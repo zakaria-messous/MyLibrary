@@ -2,20 +2,17 @@ package com.mylibrary.backend.controller.Admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
 public class AdminPageController {
 
-    @GetMapping("/livres")
-    public String livresPage() {
-        return "livres"; // Charge livres.html depuis src/main/resources/templates/
+    @GetMapping("/admin/livres")
+    public String getLivres() {
+        return "livres"; // Refers to templates/livres.html
     }
 
-    @GetMapping("/login.html")
+    @GetMapping("/admin/login")
     public String loginPage() {
-        return "login"; // Correspond à login.html dans templates
+        return "login"; // Refers to templates/login.html
     }
-
 }

@@ -41,8 +41,9 @@ public class SecurityConfiguration {
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
+                                "/images/**",
                                 "/admin/livres",
-                                "/login.html" // Ajoutez ici votre page publique
+                                "/admin/login"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
