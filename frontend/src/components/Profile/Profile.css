@@ -1,0 +1,159 @@
+/* Conteneur principal de la page de profil */
+.profile-container {
+    position: absolute;
+    top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    width: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Entête avec l'image de profil et les informations */
+  .profile-header {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    width: 80%;
+    justify-content: space-between;
+  }
+  
+  .profile-image img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .profile-info {
+    flex-grow: 1;
+    padding-left: 20px;
+  }
+  
+  .profile-info h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .profile-info p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .edit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .edit-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Contenu principal de la page (section réservations et sidebar) */
+  .profile-main-content {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+  }
+  
+  .sidebar {
+    flex-basis: 25%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .sidebar-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .main-content {
+    flex-basis: 70%;
+    padding: 20px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .reservation-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .reservation-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .reservation-card img {
+    width: 150px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .reservation-card h4 {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+  
+  .reservation-card p {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  /* Footer avec bouton de déconnexion */
+  .profile-footer {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+  }
+  
+  .logout-button {
+    background-color: #ff5722;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .logout-button:hover {
+    background-color: #e64a19;
+  }
+  
