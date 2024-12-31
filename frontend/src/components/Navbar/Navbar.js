@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false); // State to track scroll position
   const navigate = useNavigate();
-  const location = useLocation(); // Pour détecter l'URL actuelle
+  const location = useLocation();
 
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
@@ -16,26 +17,76 @@ function Navbar() {
     setDropdownOpen(false);
   };
 
-  // Vérifie si l'utilisateur est sur la page "Home"
   const isHomePage = location.pathname === '/';
 
+  // Scroll event listener to detect scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) { // Add the condition to detect when to change background color
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll); // Cleanup the event listener
+    };
+  }, []);
+
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-logo">
-        <h1>MyLibrary</h1>
+        <h1 onClick={() => handleNavigation('/')}>MyLibrary</h1>
       </div>
 
-      {/* Afficher uniquement le bouton "Login" sur la page d'accueil */}
       {isHomePage ? (
-        <button onClick={() => handleNavigation('/login')} className="login-button">
-          Login
-        </button>
+        <div className="navbar-links-home">
+          <button
+            className={location.pathname === '/' ? 'active' : ''}
+            onClick={() => handleNavigation('/')}
+          >
+            Home
+          </button>
+          <button
+            className={location.pathname === '#about' ? 'active' : ''}
+            onClick={() => handleNavigation('#about')}
+          >
+            About
+          </button>
+          <button
+            className={location.pathname === '/contact' ? 'active' : ''}
+            onClick={() => handleNavigation('/contact')}
+          >
+            Contact
+          </button>
+          <button onClick={() => handleNavigation('/login')} className="login-button">
+            Login
+          </button>
+        </div>
       ) : (
         <>
           <div className="navbar-links">
-            <button onClick={() => handleNavigation('/library')}>Home</button>
-            <button onClick={() => handleNavigation('/about')}>About</button>
-            <button onClick={() => handleNavigation('/contact')}>Contact</button>
+            <button
+              className={location.pathname === '/library' ? 'active' : ''}
+              onClick={() => handleNavigation('/library')}
+            >
+              Home
+            </button>
+            <button
+              className={location.pathname === '#about' ? 'active' : ''}
+              onClick={() => handleNavigation('#about')}
+            >
+              About
+            </button>
+            <button
+              className={location.pathname === '/contact' ? 'active' : ''}
+              onClick={() => handleNavigation('/contact')}
+            >
+              Contact
+            </button>
           </div>
           <div className="navbar-search">
             <input type="text" placeholder="Search..." />

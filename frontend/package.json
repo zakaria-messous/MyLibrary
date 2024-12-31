@@ -6,11 +6,15 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
+    "bootstrap": "^5.3.3",
     "cra-template": "1.2.0",
+    "emailjs-com": "^3.2.0",
+    "owl.carousel": "^2.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
+    "smooth-scroll": "^16.1.3",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
@@ -36,5 +40,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.31.0"
   }
 }

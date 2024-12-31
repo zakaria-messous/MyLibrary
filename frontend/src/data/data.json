@@ -1,0 +1,149 @@
+{
+  "Header": {
+    "title": "Welcome To your Library",
+    "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sed commodo nibh ante facilisis bibendum."
+  },
+  "About": {
+    "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Why": [
+      "Lorem ipsum dolor",
+      "Tempor incididunt",
+      "Lorem ipsum dolor",
+      "Incididunt ut labore"
+    ],
+    "Why2": [
+      "Aliquip ex ea commodo",
+      "Lorem ipsum dolor",
+      "Exercitation ullamco",
+      "Lorem ipsum dolor"
+    ]
+  },
+  "Gallery": [
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/01-large.jpg",
+      "smallImage": "img/portfolio/01-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/02-large.jpg",
+      "smallImage": "img/portfolio/02-small.jpg"
+    },
+    {
+      "title": "Project Title",
+      "largeImage": "img/portfolio/03-large.jpg",
+      "smallImage": "img/portfolio/03-small.jpg"
+    }
+  ],
+  "Services": [
+    {
+      "icon": "fa fa-book-reader",
+      "name": "Online Book Browsing",
+      "text": "Browse the entire library collection online from the comfort of your home. Search and explore various genres, authors, and books available for borrowing."
+    },
+    {
+      "icon": "fa fa-share-alt",
+      "name": "Book Recommendations",
+      "text": "Get personalized book recommendations based on your reading history and preferences, helping you discover new books."
+    },
+    {
+      "icon": "fa fa-calendar-check",
+      "name": "Due Date Reminders",
+      "text": "Receive automated reminders for due dates to ensure you return borrowed books on time, helping you avoid fines."
+    },
+    {
+      "icon": "fa fa-comments",
+      "name": "Book Reviews and Ratings",
+      "text": "Share your opinions and read reviews from other users on the books you borrow. Rate your books to help others make informed choices."
+    },
+    {
+      "icon": "fa fa-users",
+      "name": "Group Book Borrowing",
+      "text": "Collaborate with friends or study groups to borrow books together. Track group borrowing status and manage shared book lists."
+    }
+  ],
+  "Testimonials": [
+    {
+      "img": "img/testimonials/01.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "John Doe"
+    },
+    {
+      "img": "img/testimonials/02.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "Johnathan Doe"
+    },
+    {
+      "img": "img/testimonials/03.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "John Doe"
+    },
+    {
+      "img": "img/testimonials/04.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "Johnathan Doe"
+    },
+    {
+      "img": "img/testimonials/05.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "John Doe"
+    },
+    {
+      "img": "img/testimonials/06.jpg",
+      "text": "\"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.\"",
+      "name": "Johnathan Doe"
+    }
+  ],
+  "Team": [
+    {
+      "img": "img/team/01.jpg",
+      "name": "Messous Zakaria",
+      "job": "Backend Developper"
+    },
+    {
+      "img": "img/team/02.jpg",
+      "name": "Elhaddaji Mohamed",
+      "job": "Mobile Developper"
+    },
+    {
+      "img": "img/team/03.jpg",
+      "name": "Hadeq Hamza",
+      "job": "Backend Developper"
+    },
+    {
+      "img": "img/team/04.jpg",
+      "name": "Belaarabi Sarah",
+      "job": "Mobile Developper"
+    }
+  ],
+  "Contact": {
+    "address": "Emsi Marrakech Groupe 7 ",
+    "phone": "+212 69-9929224",
+    "email": "g7MSZHM@emsi.com",
+    "facebook": "fb.com",
+    "twitter": "twitter.com",
+    "youtube": "youtube.com"
+  },
+  "Features": [
+    {
+      "icon": "fa fa-book",
+      "title": "Book Catalog",
+      "text": "Browse through an extensive collection of books, categorized by genre, author, and publication date."
+    },
+    {
+      "icon": "fa fa-search",
+      "title": "Search Books",
+      "text": "Easily search for books by title, author, genre, or keywords, making it quick to find the book you're looking for."
+    },
+    {
+      "icon": "fa fa-user",
+      "title": "User Account Management",
+      "text": "Create and manage your personal account, track your borrowed books, and view your borrowing history."
+    },
+    {
+      "icon": "fa fa-arrow-circle-right",
+      "title": "Book Borrowing",
+      "text": "Borrow books for a specified period and keep track of your due dates, with reminders to return books on time."
+    }
+  ]
+}

@@ -1,159 +1,24 @@
-/* Conteneur principal */
-.home-container {
-  position: relative;
-  top: 0;
-  right: 2%;
-  width: 100%;
-  height: 100vh; /* Utiliser 100vh pour une hauteur pleine de la fenêtre */
-  background-image: url('../../assets/4.png'); /* Remplacer par le chemin de ton image */
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 2rem; /* Espacement général */
-}
-
-/* Section de texte */
-.home-text-section {
-  flex: 1;
-  display: flex;
-  position:absolute;
-  top: 50%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  text-align: center;
-  z-index: 1; /* Assurer que le texte soit au-dessus de l'image */
-}
-
-/* Texte animé */
-.welcome-text {
-  font-size: 3rem;
-  font-weight: bold;
-  color: white;
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 2px solid #333; /* Curseur clignotant */
-  animation: typing 3s steps(30, end), blink-caret 0.5s step-end infinite;
-}
-
-@keyframes typing {
-  from {
-    width: 0;
+@media screen and (max-width: 400px) {
+  #features {
+    padding: 20px;
+    width: 111%;
   }
-  to {
-    width: 100%;
+  #header,
+  #about,
+  #services,
+  #testimonials,
+  #team,
+  #contact,
+  #footer {
+    width: 111%;
+  }
+
+  
+  #header {
+    position: relative;
+    z-index: 1;
+  }
+  #portfolio {
+    width: 110%;
   }
 }
-
-@keyframes blink-caret {
-  from, to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: white;
-  }
-}
-
-/* Section des livres */
-.books-section {
-  margin-top: 30px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 2rem 0; /* Espacement vertical */
-}
-
-/* Liste des livres */
-.books-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px; /* Espacement uniforme entre les cartes de livres */
-  width: 100%;
-  max-width: 1200px; /* Largeur maximale pour la section des livres */
-  padding: 1rem;
-}
-
-/* Cartes de livres */
-.book-card {
-  background-color: white;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour l'effet de carte */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.3s ease;
-}
-
-.book-card:hover {
-  transform: translateY(-10px); /* Effet au survol */
-}
-
-.book-card-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-
-.book-card-info {
-  margin-top: 12px;
-  text-align: center;
-}
-
-.book-card-info h3 {
-  font-size: 1.2em;
-  margin: 8px 0;
-}
-
-.book-card-info p {
-  margin: 4px 0;
-  font-size: 0.9em;
-}
-
-.book-card-info strong {
-  font-weight: bold;
-}
-/* Overlay du modal */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-/* Contenu du modal */
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 100%;
-  text-align: center;
-}
-
-/* Styles des boutons */
-.modal-content button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  margin: 10px 5px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.modal-content button:hover {
-  background-color: #45a049;
-}
-
