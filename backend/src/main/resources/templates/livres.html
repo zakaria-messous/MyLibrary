@@ -54,9 +54,17 @@
         const token = localStorage.getItem('authToken');
         if (!token) {
             alert('Vous devez vous connecter pour accéder à cette page.');
-            window.location.href = 'login';
+            window.location.href = '/admin/login';
+            return;
         }
+
+        // Add the token to Axios headers
+        axios.interceptors.request.use(config => {
+            config.headers.Authorization = `Bearer ${token}`;
+            return config;
+        });
     });
+
 
     // Injecter le token dans toutes les requêtes Axios
     axios.interceptors.request.use(config => {

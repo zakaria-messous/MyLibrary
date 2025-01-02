@@ -73,15 +73,16 @@
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        // Perform API call to login endpoint
-        axios.post(loginUrl, { email, password })
+        // API call to the login endpoint
+        axios.post('/auth/login', { email, password })
             .then(response => {
-                const token = response.data.token; // Extract token from response
-                localStorage.setItem('authToken', token); // Store token in localStorage
-                window.location.href = '/admin/livres'; // Redirect to the admin page
+                const token = response.data.token; // Extract the token
+                localStorage.setItem('authToken', token); // Store the token in localStorage
+                window.location.href = '/admin/livres'; // Redirect to the books page
             })
-            .catch(() => {
-                document.getElementById('errorMessage').style.display = 'block'; // Show error message
+            .catch(error => {
+                console.error('Error during login:', error);
+                document.getElementById('errorMessage').style.display = 'block'; // Display error message
             });
     });
 </script>
