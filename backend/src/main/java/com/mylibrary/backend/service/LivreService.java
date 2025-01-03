@@ -118,5 +118,9 @@ public class LivreService {
         return empruntRepository.save(emprunt);
     }
 
+    // New Method: Get All Rents by User ID
+    public List<Emprunt> getRentsByUserId(Long userId) {
+        return empruntRepository.findByUserId(userId);
+    }
 
 }

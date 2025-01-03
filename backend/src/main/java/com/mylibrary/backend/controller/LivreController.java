@@ -57,6 +57,11 @@ public class LivreController {
         return livreService.rentBook(id, date);
     }
 
+    @GetMapping("/rents/{userId}")
+    public List<Emprunt> getRentsByUserId(@PathVariable Long userId) {
+        return livreService.getRentsByUserId(userId);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteLivre(@PathVariable Long id) {
         livreService.deleteLivre(id);
