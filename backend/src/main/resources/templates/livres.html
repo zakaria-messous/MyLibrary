@@ -5,47 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Livres</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/livres.css">
 </head>
 <body>
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Gestion des Livres</h1>
-    <button class="btn btn-danger mb-3" onclick="logout()">Se Déconnecter</button>
+<nav id="sidebar">
+    <h3 class="text-center">Menu</h3>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Livres</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Category</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Facturation</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="logout()">Déconnexion</a>
+        </li>
+    </ul>
+</nav>
 
-    <!-- Ajouter un livre -->
-    <div class="mb-5">
-        <h2>Ajouter un Livre</h2>
-        <form id="addLivreForm" class="row g-3">
-            <div class="col-md-4">
-                <input type="text" id="titre" placeholder="Titre" class="form-control" required>
-            </div>
-            <div class="col-md-4">
-                <input type="text" id="auteur" placeholder="Auteur" class="form-control" required>
-            </div>
-            <div class="col-md-4">
-                <button type="submit" class="btn btn-success w-100">Ajouter</button>
-            </div>
-        </form>
-    </div>
+<div id="main-content">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Gestion des Livres</h1>
 
-    <!-- Liste des livres -->
-    <div class="mb-5">
-        <h2>Liste des Livres</h2>
-        <button class="btn btn-primary mb-3" id="fetchAll">Afficher tous les livres</button>
-        <table class="table table-striped" id="livresTable">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Titre</th>
-                <th>Auteur</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Les lignes seront ajoutées dynamiquement -->
-            </tbody>
-        </table>
+        <!-- Ajouter un livre -->
+        <div class="mb-5">
+            <h2>Ajouter un Livre</h2>
+            <form id="addLivreForm" class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" id="titre" placeholder="Titre" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="auteur" placeholder="Auteur" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-success w-100">Ajouter</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Liste des livres -->
+        <div class="mb-5">
+            <h2>Liste des Livres</h2>
+            <button class="btn btn-primary mb-3" id="fetchAll">Afficher tous les livres</button>
+            <table class="table table-striped" id="livresTable">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Auteur</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Les lignes seront ajoutées dynamiquement -->
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>

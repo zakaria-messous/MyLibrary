@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    background-color: #e9ecef;
+}
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background-color: #254363;
+    color: #fff;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px 10px;
+}
+#sidebar .nav-link {
+    color: #fff;
+    margin: 10px 0;
+    transition: color 0.3s;
+}
+#sidebar .nav-link:hover {
+    color: #17a2b8;
+}
+#main-content {
+    margin-top: 200px;
+    margin-left: 400px;
+    margin-right: 200px;
+    border-radius: 10px;
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+}

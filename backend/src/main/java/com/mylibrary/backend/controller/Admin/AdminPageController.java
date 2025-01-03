@@ -15,4 +15,6 @@ public class AdminPageController {
     public String loginPage() {
         return "login"; // Refers to templates/login.html
     }
+
+
 }
