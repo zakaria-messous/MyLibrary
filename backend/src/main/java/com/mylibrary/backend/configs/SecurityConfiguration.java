@@ -46,7 +46,8 @@ public class SecurityConfiguration {
                                 "/js/**",
                                 "/images/**",
                                 "/admin/login",
-                                "/admin/livres"
+                                "/admin/livres",
+                                "/admin/categories"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session

@@ -16,5 +16,9 @@ public class AdminPageController {
         return "login"; // Refers to templates/login.html
     }
 
+    @GetMapping("/admin/categories")
+    public String categoriesPage() {
+        return "categories"; // Refers to templates/category.html
+    }
 
 }

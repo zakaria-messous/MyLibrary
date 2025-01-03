@@ -29,7 +29,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             "/css/**",
             "/js/**",
             "/images/**",
-            "/admin/livres"
+            "/admin/livres",
+            "/admin/categories"
     };
 
 

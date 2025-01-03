@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Catégories</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/css/categories.css">
+</head>
+<body>
+<nav id="sidebar">
+    <h3 class="text-center">Menu</h3>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Livres</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="categories">Category</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Facturation</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" onclick="logout()">Déconnexion</a>
+        </li>
+    </ul>
+</nav>
+<div id="main-content">
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Gestion des Catégories</h1>
+
+    <!-- Ajouter une Catégorie -->
+    <div class="mb-5">
+        <h2>Ajouter une Catégorie</h2>
+        <form id="addCategorieForm" class="row g-3">
+            <div class="col-md-8">
+                <input type="text" id="categorieName" placeholder="Nom de la Catégorie" class="form-control" required>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success w-100">Ajouter</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Liste des Catégories -->
+    <div class="mb-5">
+        <h2>Liste des Catégories</h2>
+        <button class="btn btn-primary mb-3" id="fetchAllCategories">Afficher toutes les Catégories</button>
+        <table class="table table-striped" id="categoriesTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Les lignes seront ajoutées dynamiquement -->
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const categoriesTable = document.querySelector('#categoriesTable tbody');
+
+        // Fetch all categories
+        document.getElementById('fetchAllCategories').addEventListener('click', () => {
+            axios.get('/categorie')
+                .then(response => {
+                    categoriesTable.innerHTML = '';
+                    response.data.forEach(category => {
+                        const row = `<tr>
+                                <td>${category.id}</td>
+                                <td>${category.name}</td>
+                                <td>
+                                    <button class="btn btn-info btn-sm" onclick="editCategory(${category.id})">Modifier</button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteCategory(${category.id})">Supprimer</button>
+                                </td>
+                            </tr>`;
+                        categoriesTable.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error(error));
+        });
+
+        // Add a new category
+        document.getElementById('addCategorieForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('categorieName').value;
+
+            axios.post('/categorie', { name })
+                .then(() => {
+                    alert('Catégorie ajoutée avec succès !');
+                    document.getElementById('addCategorieForm').reset();
+                    document.getElementById('fetchAllCategories').click(); // Refresh the list
+                })
+                .catch(error => console.error(error));
+        });
+
+        // Edit a category
+        window.editCategory = (id) => {
+            const newName = prompt('Entrez le nouveau nom de la catégorie:');
+            if (newName) {
+                axios.put(`/categorie/${id}`, { name: newName })
+                    .then(() => {
+                        alert('Catégorie modifiée avec succès !');
+                        document.getElementById('fetchAllCategories').click(); // Refresh the list
+                    })
+                    .catch(error => console.error(error));
+            }
+        };
+
+        // Delete a category
+        window.deleteCategory = (id) => {
+            if (confirm('Voulez-vous vraiment supprimer cette catégorie ?')) {
+                axios.delete(`/categorie/${id}`)
+                    .then(() => {
+                        alert('Catégorie supprimée avec succès !');
+                        document.getElementById('fetchAllCategories').click(); // Refresh the list
+                    })
+                    .catch(error => console.error(error));
+            }
+        };
+    });
+</script>
+</body>
+</html>
