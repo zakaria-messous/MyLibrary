@@ -16,22 +16,32 @@ function LibraryPage() {
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const [loading, setLoading] = useState(true); // State for loading status
 
-  // Fetch books from API on component mount
+  // Fetch books and categories from APIs on component mount
   useEffect(() => {
+    // Fetch categories first
+    axiosInstance.get('/categorie') // Use the Axios instance to fetch categories
+      .then((response) => {
+        setCategories(response.data); // Set fetched categories
+        setLoading(false); // Set loading to false once categories are fetched
+      })
+      .catch((error) => {
+        console.error('Error fetching categories:', error);
+        setLoading(false); // Stop loading in case of error
+      });
+    
+    // Fetch books after categories are fetched
     axiosInstance.get('/livre') // Use the Axios instance for API call
       .then((response) => {
         const fetchedBooks = response.data;
         setBooks(fetchedBooks);
         // Set categories dynamically based on fetched books
-        const uniqueCategories = [...new Set(fetchedBooks.map((book) => book.category))];
-        setCategories(uniqueCategories);
+        const uniqueCategories = [...new Set(fetchedBooks.map((book) => book.categorie.nomCategorie))];
         // Initialize book indexes based on categories
         const initialIndexes = uniqueCategories.reduce((acc, category) => {
           acc[category] = 0;
           return acc;
         }, {});
         setBookIndexes(initialIndexes);
-        setLoading(false); // Set loading to false after data is fetched
       })
       .catch((error) => {
         console.error('Error fetching books:', error);
@@ -40,7 +50,7 @@ function LibraryPage() {
   }, []);
 
   const scroll = (category, direction) => {
-    const booksInCategory = books.filter((book) => book.category === category);
+    const booksInCategory = books.filter((book) => book.categorie.nomCategorie === category);
     const totalBooks = booksInCategory.length;
     const currentIndex = bookIndexes[category];
 
@@ -64,7 +74,7 @@ function LibraryPage() {
 
   // Filter books based on selected category
   const filteredBooks =
-    selectedCategory === 'All' ? books : books.filter((book) => book.category === selectedCategory);
+    selectedCategory === 'All' ? books : books.filter((book) => book.categorie.nomCategorie === selectedCategory);
 
   // Handle category change to adjust the library container's position
   useEffect(() => {
@@ -89,7 +99,7 @@ function LibraryPage() {
 
   // Handle logout
   const handleLogout = () => {
-    localStorage.removeItem('jwtToken'); // Remove token from localStorage
+    localStorage.removeItem('token'); // Remove token from localStorage
     navigate('/login'); // Redirect to login page
   };
 
@@ -114,9 +124,9 @@ function LibraryPage() {
             className="category-select"
           >
             <option value="All">All Categories</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
+            {categories && categories.map((category) => (
+              <option key={category.id} value={category.nomCategorie}>
+                {category.nomCategorie}
               </option>
             ))}
           </select>
@@ -125,27 +135,27 @@ function LibraryPage() {
         {/* Render books based on the selected category */}
         {selectedCategory === 'All' ? (
           categories.map((category) => {
-            const booksInCategory = books.filter((book) => book.category === category);
+            const booksInCategory = books.filter((book) => book.categorie.nomCategorie === category.nomCategorie);
             const totalBooks = booksInCategory.length;
 
             if (totalBooks < 1) {
               return (
-                <div key={category} className="category-section">
-                  <h2>{category}</h2>
+                <div key={category.id} className="category-section">
+                  <h2>{category.nomCategorie}</h2>
                   <p>No books available in this category</p>
                 </div>
               );
             }
 
             return (
-              <div key={category} className="category-section">
-                <h2>{category}</h2>
+              <div key={category.id} className="category-section">
+                <h2>{category.nomCategorie}</h2>
                 <div className="books-row">
-                  <button className="scroll-button-left" onClick={() => scroll(category, 'left')}>
+                  <button className="scroll-button-left" onClick={() => scroll(category.nomCategorie, 'left')}>
                     &lt;
                   </button>
                   {booksInCategory
-                    .slice(bookIndexes[category], bookIndexes[category] + 5)
+                    .slice(bookIndexes[category.nomCategorie], bookIndexes[category.nomCategorie] + 5)
                     .map((book) => (
                       <div key={book.id} className="book-card" onClick={() => handleBookClick(book)}>
                         <img src={book.imageUrl} alt={book.titre} />
@@ -156,7 +166,7 @@ function LibraryPage() {
                         </div>
                       </div>
                     ))}
-                  <button className="scroll-button-right" onClick={() => scroll(category, 'right')}>
+                  <button className="scroll-button-right" onClick={() => scroll(category.nomCategorie, 'right')}>
                     &gt;
                   </button>
                 </div>

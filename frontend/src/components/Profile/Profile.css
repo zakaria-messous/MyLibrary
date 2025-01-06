@@ -160,6 +160,51 @@ h2 {
   color: #95a5a6;
 }
 
+.facturation-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.facturation-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.facturation-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.facturation-card img {
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.facturation-card:hover img {
+  transform: scale(1.05);
+}
+
+.facturation-card h4 {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #2c3e50;
+}
+
+.facturation-card p {
+  font-size: 14px;
+  color: #95a5a6;
+}
+
+
 /* Footer avec bouton de déconnexion */
 .profile-footer {
   width: 100%;
