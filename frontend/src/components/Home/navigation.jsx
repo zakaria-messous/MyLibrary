@@ -1,27 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import './navigation.css';
+import profileImage from '../../assets/profile.jpg';
 
-const Navigation = (props) => {
+const Navigation = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false); // State to track scroll position
+  const [scrolled, setScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [user, setUser] = useState(null);  // State for storing user data
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Fetch user data from localStorage on component mount
+  useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (loggedInUser) {
+      setUser(loggedInUser);  // Set user data if available
+    }
+  }, []);
+
   const toggleDropdown = () => {
+    console.log("Toggling dropdown", !isDropdownOpen); // Debugging the toggle
     setDropdownOpen(!isDropdownOpen);
   };
 
   const handleNavigation = (route) => {
     navigate(route);
-    setDropdownOpen(false);
+    setDropdownOpen(false); // Close dropdown after navigation
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   const isHomePage = location.pathname === '/';
 
-  // Scroll event listener to detect scroll position
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) { // Add the condition to detect when to change background color
+      if (window.scrollY > 50) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -31,7 +47,7 @@ const Navigation = (props) => {
     window.addEventListener('scroll', handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll); // Cleanup the event listener
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -43,67 +59,68 @@ const Navigation = (props) => {
             type="button"
             className="navbar-toggle collapsed"
             data-toggle="collapse"
-            data-target="#bs-example-navbar-collapse-1"
+            data-target="#navbar-collapse"
           >
             <span className="sr-only">Toggle navigation</span>
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand page-scroll" href="#page-top" onClick={() => handleNavigation('/')}>
+          <a className="navbar-brand page-scroll" onClick={() => handleNavigation('/')}>
             MyLibrary
           </a>
         </div>
 
-        <div
-          className="collapse navbar-collapse"
-          id="bs-example-navbar-collapse-1"
-        >
+        <div className="collapse navbar-collapse" id="navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li>
-              <a
-                href="#features"
-                className={location.hash === '#features' ? 'active' : ''}
-                onClick={() => handleNavigation('#features')}
-              >
-                Features
-              </a>
-            </li>
-           
-            
-           
-            <li>
-              <a
-                href="#team"
-                className={location.hash === '#team' ? 'active' : ''}
-                onClick={() => handleNavigation('#team')}
-              >
-                Team
-              </a>
-            </li>
-            <li>
-              <a
-                href="#contact"
-                className={location.hash === '#contact' ? 'active' : ''}
-                onClick={() => handleNavigation('#contact')}
-              >
-                Contact
-              </a>
-            </li>
-            <li>
-              <button onClick={() => handleNavigation('/login')} className="login-button" id="login-button">
-                Login
-              </button>
-            </li>
+            {isHomePage ? (
+              <>
+                <li><a href="#features" onClick={() => handleNavigation('#features')}>Features</a></li>
+                <li><a href="#team" onClick={() => handleNavigation('#team')}>Team</a></li>
+                <li><a href="#contact" onClick={() => handleNavigation('#contact')}>Contact</a></li>
+                <li><button onClick={() => handleNavigation('/login')} className="login-button" id='login-button'>Login</button></li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <div className="search-container">
+                    <input
+                      type="text"
+                      placeholder="Search for books..."
+                      value={searchQuery}
+                      onChange={handleSearchChange}
+                      className="search-input"
+                    />
+                  </div>
+                </li>
+                {user && (
+                  <li className="user-fullname">
+                    <span>{user.fullname}</span>
+                  </li>
+                )}
+                <li className={`profile-dropdown ${isDropdownOpen ? 'open' : ''}`}>
+                  <button
+                    className="profile-btn"
+                    onClick={toggleDropdown}
+                    style={{ backgroundImage: `url(${profileImage})` }}
+                  ></button>
+
+                  {user && isDropdownOpen && (  // Display dropdown only if user is logged in
+                    <ul className="dropdown-menu">
+                      <li onClick={() => handleNavigation('/profile')}>Profile</li>
+                      <li onClick={() => handleNavigation('/reservations')}>Reservations</li>
+                      <li onClick={() => handleNavigation('/logout')}>Logout</li>
+                    </ul>
+                  )}
+                </li>
+               
+              </>
+            )}
           </ul>
         </div>
       </div>
-
-    
-
-     
     </nav>
   );
 };
 
-export default Navigation;  // Exportation par défaut
+export default Navigation;

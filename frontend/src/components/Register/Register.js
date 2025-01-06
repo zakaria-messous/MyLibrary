@@ -1,6 +1,8 @@
-import React, { useState } from 'react'; 
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import './Register.css';
+// Import the data.json file
+import userData from '../../data/data.json';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -10,10 +12,13 @@ function Register() {
   const [errorMessage, setErrorMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [existingUsers, setExistingUsers] = useState([]);
   const navigate = useNavigate();
 
-  // Simuler une base de données pour vérifier l'email
-  const existingEmails = ['meriame@gmail.com'];
+  // Use the imported data directly
+  useEffect(() => {
+    setExistingUsers(userData.users); // Assuming 'users' is an array in your data.json
+  }, []);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,6 +27,11 @@ function Register() {
 
   const handleRegister = (e) => {
     e.preventDefault();
+
+    // Reset error messages
+    setErrorMessage('');
+    setToastMessage('');
+    setShowToast(false);
 
     // Validation des champs
     if (!username || !email || !password || !confirmPassword) {
@@ -36,8 +46,18 @@ function Register() {
       return;
     }
 
-    if (existingEmails.includes(email)) {
+    // Check if email or username already exists
+    const emailExists = existingUsers.some(user => user.email === email);
+    const usernameExists = existingUsers.some(user => user.username === username);
+
+    if (emailExists) {
       setToastMessage('This email is already registered.');
+      setShowToast(true);
+      return;
+    }
+
+    if (usernameExists) {
+      setToastMessage('This username is already taken.');
       setShowToast(true);
       return;
     }
@@ -54,10 +74,10 @@ function Register() {
       return;
     }
 
-    // Si tout est valide
+    // If everything is valid
     setToastMessage('Registration successful! Redirecting to login...');
     setShowToast(true);
-    
+
     // Redirect to login page after a small delay
     setTimeout(() => {
       navigate('/login');
@@ -121,7 +141,7 @@ function Register() {
             </button>
           </form>
 
-          {/* Message d'erreur */}
+          {/* Displaying the error message */}
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
       </div>

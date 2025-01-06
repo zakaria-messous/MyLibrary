@@ -58,8 +58,6 @@ ol {
 ul,
 ol {
   padding: 0;
-  webkit-padding: 0;
-  moz-padding: 0;
 }
 hr {
   height: 2px;
@@ -401,7 +399,6 @@ header .intro-text {
 }
 .hover-bg:hover .hover-text > h4 {
   opacity: 1;
-  -webkit-backface-visibility: hidden;
   -webkit-transform: translateY(0);
   transform: translateY(0);
 }
@@ -468,6 +465,7 @@ header .intro-text {
   justify-content: space-between; /* Espacement uniforme entre les membres */
   gap: 20px; /* Espace entre les membres */
   flex-wrap: nowrap; /* Évite les retours à la ligne */
+  
 }
 
 #team .team {
@@ -481,7 +479,7 @@ header .intro-text {
 }
 
 #team .team-img {
-  width: 100%;
+  width: 30%;
   border-radius: 50%; /* Optionnel : pour des images circulaires */
 }
 
