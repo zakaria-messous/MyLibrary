@@ -1,40 +1,29 @@
-import React, { useState, useEffect } from 'react'; 
-import { Link, useNavigate } from 'react-router-dom'; 
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Register.css';
-// Import the data.json file
-import userData from '../../data/data.json';
+import axiosInstance from '../../axios'; // Import the custom axios instance
 
 function Register() {
-  const [username, setUsername] = useState('');
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [existingUsers, setExistingUsers] = useState([]);
   const navigate = useNavigate();
-
-  // Use the imported data directly
-  useEffect(() => {
-    setExistingUsers(userData.users); // Assuming 'users' is an array in your data.json
-  }, []);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    // Reset error messages
-    setErrorMessage('');
     setToastMessage('');
     setShowToast(false);
 
-    // Validation des champs
-    if (!username || !email || !password || !confirmPassword) {
+    if (!fullName || !email || !password || !confirmPassword) {
       setToastMessage('All fields are required.');
       setShowToast(true);
       return;
@@ -42,22 +31,6 @@ function Register() {
 
     if (!validateEmail(email)) {
       setToastMessage('Invalid email format.');
-      setShowToast(true);
-      return;
-    }
-
-    // Check if email or username already exists
-    const emailExists = existingUsers.some(user => user.email === email);
-    const usernameExists = existingUsers.some(user => user.username === username);
-
-    if (emailExists) {
-      setToastMessage('This email is already registered.');
-      setShowToast(true);
-      return;
-    }
-
-    if (usernameExists) {
-      setToastMessage('This username is already taken.');
       setShowToast(true);
       return;
     }
@@ -74,84 +47,58 @@ function Register() {
       return;
     }
 
-    // If everything is valid
-    setToastMessage('Registration successful! Redirecting to login...');
-    setShowToast(true);
+    const registerData = { fullName, email, password };
 
-    // Redirect to login page after a small delay
-    setTimeout(() => {
-      navigate('/login');
-    }, 1500); // Wait 1.5 seconds before redirecting
+    try {
+      const response = await axiosInstance.post('/auth/signup', registerData);
+      setToastMessage('Registration successful! Redirecting to login...');
+      setShowToast(true);
+      setTimeout(() => navigate('/login'), 1500);
+    } catch (error) {
+      if (error.response) {
+        // Show backend error
+        setToastMessage(error.response.data.message || 'An error occurred during registration.');
+      } else {
+        setToastMessage('An error occurred during registration.');
+      }
+      setShowToast(true);
+    }
   };
 
   return (
     <div className="register-container">
       <div className="register-box">
-        {/* Section droite */}
         <div className="register-right">
-          <h2>Welcome Back</h2>
-          <p>Already have an account?</p>
-          <Link to="/login" className="signin-button">
-            Sign In
-          </Link>
+          <h2>Already Registered?</h2>
+          <Link to="/login" className="signin-button">Sign In</Link>
         </div>
 
-        {/* Section gauche */}
         <div className="register-left">
-          <h2>Sign Up</h2>
+          <h2>Register</h2>
           <form onSubmit={handleRegister}>
+            {/* Input Fields */}
             <div className="form-group">
-              <label>Username</label>
-              <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
+              <label>Full Name</label>
+              <input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
             </div>
             <div className="form-group">
               <label>Email</label>
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="form-group">
               <label>Password</label>
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
             <div className="form-group">
               <label>Confirm Password</label>
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
+              <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
             </div>
-            <button type="submit" className="register-button">
-              Sign Up
-            </button>
+            <button type="submit">Sign Up</button>
           </form>
-
-          {/* Displaying the error message */}
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
       </div>
-
-      {/* Toast notification */}
-      {showToast && (
-        <div className={`toast ${toastMessage.includes('successful') ? 'success-toast' : 'error-toast'}`}>
-          <p>{toastMessage}</p>
-        </div>
-      )}
+      
+      {showToast && <div className="toast">{toastMessage}</div>}
     </div>
   );
 }

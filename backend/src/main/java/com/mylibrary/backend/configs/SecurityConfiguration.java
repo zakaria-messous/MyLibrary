@@ -34,9 +34,16 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                // Disable CSRF
+                .csrf(csrf -> csrf.disable())
+
+                // Configure CORS (explicitly integrate the corsConfigurationSource bean)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+
+                // Define authorization rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                // Public endpoints that do not require authentication
                                 "/auth/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
@@ -45,27 +52,37 @@ public class SecurityConfiguration {
                                 "/admin/livres",
                                 "/admin/login"
                         ).permitAll()
-                        .anyRequest().authenticated())
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                        // All other requests require authentication
+                        .anyRequest().authenticated()
+                )
+
+                // Session management (stateless, suitable for JWT-based auth)
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+
+                // Add custom authentication provider
                 .authenticationProvider(authenticationProvider)
+
+                // Add the JWT filter before UsernamePasswordAuthenticationFilter
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:8080"));
-        configuration.setAllowedMethods(List.of("GET","POST"));
-        configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000")); // Front-end origin
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Supported methods
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type")); // Allowed headers
+        configuration.setAllowCredentials(true); // Allow credentials such as cookies
+        configuration.setExposedHeaders(List.of("Authorization")); // Exposed headers for the response
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-        source.registerCorsConfiguration("/**",configuration);
+        source.registerCorsConfiguration("/**", configuration); // Apply CORS to all endpoints
 
         return source;
     }

@@ -1,40 +1,52 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
-import data from '../../data/data.json';
+import axiosInstance from '../../axios'; // Import the custom axios instance
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const user = data.users.find(
-      (u) => u.email === email && u.password === password
-    );
+    // Reset error messages
+    setErrorMessage('');
+    setToastMessage('');
+    setShowToast(false);
 
-    if (user) {
-      // Save the user data to localStorage
-      localStorage.setItem('loggedInUser', JSON.stringify(user));
+    // Validation of inputs
+    if (!email || !password) {
+      setToastMessage('Please fill in both email and password');
+      setShowToast(true);
+      return;
+    }
 
-      setIsSuccess(true);
-      setToastMessage(`Welcome ${user.fullname}! Redirecting to Library...`);
+    const loginData = { email : email, password };  // Send login data
+
+    try {
+      // Make API call to the login endpoint
+      const response = await axiosInstance.post('/auth/login', loginData);
+
+      // Store the received token and expiration time in localStorage
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('expiresIn', response.data.expiresIn);
+
+      setToastMessage('Login successful! Redirecting...');
       setShowToast(true);
+
+      // Redirect to a protected page (e.g., /library)
       setTimeout(() => {
-        navigate('/library');
-      }, 1500);
-    } else {
-      setIsSuccess(false);
-      setToastMessage('Incorrect email or password. Please try again!');
+        navigate('/library'); // Redirect to the library page (or any other protected route)
+      }, 1500); // Wait 1.5 seconds before redirecting
+
+    } catch (error) {
+      setToastMessage('Invalid email or password');
       setShowToast(true);
-      setTimeout(() => {
-        setShowToast(false);
-      }, 3000);
     }
   };
 
@@ -66,21 +78,20 @@ function Login() {
               Sign In
             </button>
           </form>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
 
-        {/* Right section */}
         <div className="login-right">
-          <h2>Welcome to login</h2>
+          <h2>Welcome Back</h2>
           <p>Don't have an account?</p>
-          <Link to="/Register" className="signup-button">
+          <Link to="/register" className="signup-button">
             Sign Up
           </Link>
         </div>
       </div>
 
-      {/* Toast notification */}
       {showToast && (
-        <div className={`toast ${isSuccess ? 'success-toast' : 'error-toast'}`}>
+        <div className={`toast ${toastMessage.includes('successful') ? 'success-toast' : 'error-toast'}`}>
           <p>{toastMessage}</p>
         </div>
       )}

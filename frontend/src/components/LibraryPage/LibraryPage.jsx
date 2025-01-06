@@ -1,24 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import Navigation from '../Home/navigation';
 import './LibraryPage.css';
-import booksData from '../../data/data.json'; // Adjust the path if necessary
+import axiosInstance from '../../axios'; // Import the custom Axios instance
 import Confirmation from '../Confirmation/Confirmation'; // Import the Confirmation component
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
 function LibraryPage() {
-  const books = booksData.books; // Directly use the imported JSON data
-  const categories = [...new Set(books.map((book) => book.category))];
-
-  const [bookIndexes, setBookIndexes] = useState(
-    categories.reduce((acc, category) => {
-      acc[category] = 0;
-      return acc;
-    }, {})
-  );
-
+  const navigate = useNavigate(); // To navigate on logout
+  const [books, setBooks] = useState([]); // State for books data
+  const [categories, setCategories] = useState([]); // State for book categories
+  const [bookIndexes, setBookIndexes] = useState({}); // State for tracking book indexes
   const [selectedCategory, setSelectedCategory] = useState('All'); // State for selected category
   const [libraryPosition, setLibraryPosition] = useState(400); // State for the library container's top position
   const [selectedBook, setSelectedBook] = useState(null); // State for the selected book to show in Confirmation
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [loading, setLoading] = useState(true); // State for loading status
+
+  // Fetch books from API on component mount
+  useEffect(() => {
+    axiosInstance.get('/livre') // Use the Axios instance for API call
+      .then((response) => {
+        const fetchedBooks = response.data;
+        setBooks(fetchedBooks);
+        // Set categories dynamically based on fetched books
+        const uniqueCategories = [...new Set(fetchedBooks.map((book) => book.category))];
+        setCategories(uniqueCategories);
+        // Initialize book indexes based on categories
+        const initialIndexes = uniqueCategories.reduce((acc, category) => {
+          acc[category] = 0;
+          return acc;
+        }, {});
+        setBookIndexes(initialIndexes);
+        setLoading(false); // Set loading to false after data is fetched
+      })
+      .catch((error) => {
+        console.error('Error fetching books:', error);
+        setLoading(false); // Stop loading in case of error
+      });
+  }, []);
 
   const scroll = (category, direction) => {
     const booksInCategory = books.filter((book) => book.category === category);
@@ -54,7 +73,7 @@ function LibraryPage() {
     } else {
       setLibraryPosition(0); // Move to the top when a category is selected
     }
-  }, [selectedCategory]); // Trigger when the category is changed
+  }, [selectedCategory]);
 
   // Handle book click to select a book for reservation and open the modal
   const handleBookClick = (book) => {
@@ -68,10 +87,25 @@ function LibraryPage() {
     setSelectedBook(null); // Reset the selected book
   };
 
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('jwtToken'); // Remove token from localStorage
+    navigate('/login'); // Redirect to login page
+  };
+
+  if (loading) {
+    return <div>Loading...</div>; // Show loading state while fetching books
+  }
+
   return (
     <div>
       <Navigation />
       <div className="library-container" style={{ top: `${libraryPosition}px` }}>
+        {/* Logout Button */}
+        <button onClick={handleLogout} className="logout-button">
+          Logout
+        </button>
+
         {/* Category filter dropdown */}
         <div className="category-filter">
           <select
@@ -114,11 +148,11 @@ function LibraryPage() {
                     .slice(bookIndexes[category], bookIndexes[category] + 5)
                     .map((book) => (
                       <div key={book.id} className="book-card" onClick={() => handleBookClick(book)}>
-                        <img src={book.imageUrl} alt={book.title} />
+                        <img src={book.imageUrl} alt={book.titre} />
                         <div className="book-details">
-                          <h3>{book.title}</h3>
-                          <p>{book.author}</p>
-                          <p>{book.price} MAD</p>
+                          <h3>{book.titre}</h3>
+                          <p>{book.auteur}</p>
+                          <p>{book.prix} MAD</p>
                         </div>
                       </div>
                     ))}
@@ -140,11 +174,11 @@ function LibraryPage() {
                 .slice(bookIndexes[selectedCategory], bookIndexes[selectedCategory] + 5)
                 .map((book) => (
                   <div key={book.id} className="book-card" onClick={() => handleBookClick(book)}>
-                    <img src={book.imageUrl} alt={book.title} />
+                    <img src={book.imageUrl} alt={book.titre} />
                     <div className="book-details">
-                      <h3>{book.title}</h3>
-                      <p>{book.author}</p>
-                      <p>{book.price} MAD</p>
+                      <h3>{book.titre}</h3>
+                      <p>{book.auteur}</p>
+                      <p>{book.prix} MAD</p>
                     </div>
                   </div>
                 ))}
