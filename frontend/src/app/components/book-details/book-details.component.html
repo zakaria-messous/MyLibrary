@@ -1,9 +1,0 @@
-<div class="book-details">
-    <h2>{{ livre.titre }}</h2>
-    <img [src]="'assets/books-img/' + livre.image" alt="{{ livre.titre }}" />
-    <p>Author : {{ livre.auteur }}</p>
-    <p>Description : {{ livre.description }}</p>
-    <p>Price : {{ livre.prix }} €</p>
-    <p>Disponibility : {{ livre.disponibilite ? 'En stock' : 'Out Of stock' }}</p>
-    <div class="add-to-cart" (click)="addToCart()"></div>
-</div>
