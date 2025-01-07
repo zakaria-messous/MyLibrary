@@ -111,10 +111,7 @@ function LibraryPage() {
     <div>
       <Navigation />
       <div className="library-container" style={{ top: `${libraryPosition}px` }}>
-        {/* Logout Button */}
-        <button onClick={handleLogout} className="logout-button">
-          Logout
-        </button>
+
 
         {/* Category filter dropdown */}
         <div className="category-filter">

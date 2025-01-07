@@ -33,5 +33,8 @@ public class Livre{
     @JoinColumn(name = "categorie_id")
     private Categorie categorie;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     // Getters and Setters
 }
