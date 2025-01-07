@@ -1,0 +1,160 @@
+/* Styles de base */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Conteneur principal */
+  .register-container {
+    width: 150%;
+    display: flex;
+    position: relative;
+    right: 30%;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Boîte d'enregistrement */
+  .register-box {
+    display: flex;
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    bottom : 70px;
+  }
+  .error-message {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  /* Toast Styles */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 25px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  animation: fadeIn 1s ease-out;
+}
+
+.success-toast {
+  background-color: #28a745; /* Green */
+}
+
+.error-toast {
+  background-color: #dc3545; /* Red */
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Error message styling */
+.error-message {
+  color: red;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+  /* Section gauche */
+  .register-left {
+    width: 200%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .register-left h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .icon-button {
+    background: #f1f1f1;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .register-button {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(to right,#851E38, #254363);
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Section droite */
+  .register-right {
+    width: 200%;
+    background: linear-gradient(to right,#851E38, #254363);
+    color: #fff;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .register-right h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .signin-button {
+    padding: 0.75rem 2rem;
+    border: 2px solid #fff;
+    background: none;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  

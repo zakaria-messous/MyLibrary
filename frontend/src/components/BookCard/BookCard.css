@@ -1,0 +1,36 @@
+/* src/components/BookCard/BookCard.css */
+.book-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 300px;
+    margin: 16px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+  }
+  
+  .book-card-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .book-card-info {
+    margin-top: 12px;
+  }
+  
+  .book-card-info h3 {
+    font-size: 1.2em;
+    margin: 8px 0;
+  }
+  
+  .book-card-info p {
+    margin: 4px 0;
+    font-size: 0.9em;
+  }
+  
+  .book-card-info strong {
+    font-weight: bold;
+  }
+  

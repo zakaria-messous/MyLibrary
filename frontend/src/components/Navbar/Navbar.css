@@ -1,0 +1,122 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 2rem;
+  background: transparent; /* Make the navbar background transparent */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  color: white;
+  box-shadow: none; /* Remove the shadow for a cleaner look */
+}
+
+/* Add a transition for background color when scrolling */
+.navbar.scrolled {
+  background: linear-gradient(to right, #851E38, #254363); /* Semi-transparent background when scrolling */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease-in-out;
+}
+
+/* Logo */
+.navbar-logo h1 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Links for Homepage */
+.navbar-links-home {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-links-home button {
+  background: none;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar-links-home button:hover {
+  color: #ddd;
+}
+
+.login-button {
+  text-decoration: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: 2px solid white;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #333;
+  color: white;
+}
+/* General Styles for Navbar Links */
+.navbar-links-home button,
+.navbar-links button {
+  background: none;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Hover Effect: Change text color slightly */
+.navbar-links-home button:hover,
+.navbar-links button:hover {
+  color: #ddd; /* Subtle change in text color */
+  background: #851E38;
+}
+
+/* Remove default hover background (green issue) */
+.navbar-links-home button:focus,
+.navbar-links button:focus {
+  outline: none;
+  background: #851E38;
+}
+
+/* Active Button with Underline */
+.navbar-links-home button.active::after,
+.navbar-links button.active::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+/* Inactive Buttons: No underline */
+.navbar-links-home button:not(.active)::after,
+.navbar-links button:not(.active)::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: transparent;
+  transition: width 0.3s ease;
+}
+/* Add a transition for background color when scrolling */
+.navbar.scrolled {
+  background:  linear-gradient(to right, #851E38, #254363); /* Semi-transparent background when scrolling */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease-in-out;
+}

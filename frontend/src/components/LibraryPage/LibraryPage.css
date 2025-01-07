@@ -1,0 +1,190 @@
+.library-container {
+  padding: 3rem; /* Increased padding for more space */
+  position: relative;
+  top: 450px; /* Adjusted to make the section more centered */
+}
+
+.category-section {
+  margin-bottom: 3rem; /* Increased margin for more space */
+}
+
+.category-section h2 {
+  margin-bottom: 1.5rem; /* Increased margin for better spacing */
+  font-size: 2rem; /* Increased font size for better visibility */
+  color: #333;
+}
+.category-filter {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.category-select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
+.category-select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.books-row {
+  display: flex;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  gap: 2rem; /* Increased gap for better spacing between cards */
+  padding-bottom: 2rem; /* Increased padding for the scroll area */
+}
+
+.books-row::-webkit-scrollbar {
+  height: 10px; /* Increased scrollbar height */
+}
+
+.books-row::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.book-card {
+  min-width: 200px; /* Increased min-width for bigger cards */
+  flex: 0 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 12px; /* More rounded corners */
+  padding: 1.5rem; /* More padding for content */
+  text-align: center;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1); /* More prominent shadow */
+  background-color: #fff;
+  transition: transform 0.3s ease; /* Added transition for hover effect */
+}
+
+.book-card:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.book-card img {
+  width: 100%;
+  height: 200px; /* Increased height for bigger images */
+  margin-bottom: 1.5rem; /* More space below the image */
+  border-radius: 8px; /* More rounded corners for the image */
+}
+
+.book-details {
+  text-align: left;
+}
+
+.book-details h3 {
+  font-size: 1.3rem; /* Larger font size for the book title */
+  margin-bottom: 0.7rem; /* More space between title and other details */
+}
+
+.book-details p {
+  margin: 0.4rem 0; /* Increased margin for more spacing */
+  font-size: 1rem; /* Slightly larger font size for better readability */
+}
+
+.scroll-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem; /* Increased space below the scroll buttons */
+}
+
+.scroll-buttons button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px; /* Bigger buttons */
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.8rem; /* Increased font size for button icon */
+  transition: background-color 0.3s;
+}
+
+.scroll-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.scroll-buttons button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Custom buttons for left and right */
+.scroll-button-left,
+.scroll-button-right {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px; /* Bigger buttons */
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.8rem; /* Increased font size for button icon */
+  transition: background-color 0.3s;
+}
+
+.scroll-button-left:hover,
+.scroll-button-right:hover {
+  background-color: #0056b3;
+}
+
+.scroll-button-left:disabled,
+.scroll-button-right:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+/* Modal overlay to cover the whole screen */
+.modal-overlay {
+  position: fixed;
+  top: 200px;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content styling */
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+}
+
+button {
+  margin-top: 10px;
+  margin: 10px;
+  background-color:#254363 ;
+}
+
+.logout-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #ff4d4d; /* Red button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.logout-button:hover {
+  background-color: #ff1a1a; /* Darker red on hover */
+}
