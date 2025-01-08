@@ -15,4 +15,23 @@ public class AdminService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public User updateUser(Long id, User user) {
+        User existingUser = userRepository.findById(id).orElse(null);
+        if (existingUser != null) {
+            existingUser.setFullName(user.getFullName());
+            existingUser.setEmail(user.getEmail());
+            existingUser.setRole(user.getRole());
+            return userRepository.save(existingUser);
+        }
+        return null;
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }

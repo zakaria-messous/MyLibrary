@@ -16,13 +16,13 @@
             <a class="nav-link" href="#">Livres</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="categories">Category</a>
+            <a class="nav-link" href="categories">Catégories</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Facturation</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Users</a>
+            <a class="nav-link" href="users">Utilisateurs</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#" onclick="logout()">Déconnexion</a>
@@ -67,7 +67,23 @@
 </div>
 
 <script>
+    // Vérifier l'authentification
     document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            alert('Vous devez vous connecter pour accéder à cette page.');
+            window.location.href = '/admin/login';
+            return;
+        }
+
+        // Injecter le token dans toutes les requêtes Axios
+        axios.interceptors.request.use(config => {
+            config.headers.Authorization = `Bearer ${token}`;
+            return config;
+        }, error => {
+            return Promise.reject(error);
+        });
+
         const categoriesTable = document.querySelector('#categoriesTable tbody');
 
         // Fetch all categories
@@ -78,9 +94,9 @@
                     response.data.forEach(category => {
                         const row = `<tr>
                                 <td>${category.id}</td>
-                                <td>${category.name}</td>
+                                <td>${category.nomCategorie || 'Non spécifié'}</td>
                                 <td>
-                                    <button class="btn btn-info btn-sm" onclick="editCategory(${category.id})">Modifier</button>
+                                    <button class="btn btn-success btn-sm" onclick="editCategory(${category.id})">Modifier</button>
                                     <button class="btn btn-danger btn-sm" onclick="deleteCategory(${category.id})">Supprimer</button>
                                 </td>
                             </tr>`;
@@ -93,9 +109,9 @@
         // Add a new category
         document.getElementById('addCategorieForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('categorieName').value;
+            const nomCategorie = document.getElementById('categorieName').value;
 
-            axios.post('/categorie', { name })
+            axios.post('/categorie', { nomCategorie })
                 .then(() => {
                     alert('Catégorie ajoutée avec succès !');
                     document.getElementById('addCategorieForm').reset();
@@ -108,7 +124,7 @@
         window.editCategory = (id) => {
             const newName = prompt('Entrez le nouveau nom de la catégorie:');
             if (newName) {
-                axios.put(`/categorie/${id}`, { name: newName })
+                axios.put(`/categorie/${id}`, { nomCategorie: newName })
                     .then(() => {
                         alert('Catégorie modifiée avec succès !');
                         document.getElementById('fetchAllCategories').click(); // Refresh the list

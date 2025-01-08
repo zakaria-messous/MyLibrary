@@ -23,6 +23,8 @@ public class Livre{
     private boolean disponibilite;
     private int nombreCopieDispo;
     private float prix;
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @OneToMany(mappedBy = "livre", cascade = CascadeType.ALL)
     @JsonIgnore

@@ -22,11 +22,21 @@ body {
     color: #2592AE;
 }
 #main-content {
-    margin-top: 200px;
+    margin-top: 100px;
     margin-left: 400px;
     margin-right: 200px;
     border-radius: 10px;
     width: 100%;
     padding: 20px;
     background-color: white;
+}
+#livresTable img {
+    display: block;
+    margin: 0 auto; /* Centre l'image horizontalement */
+    width: 80px;    /* Ajustez la taille selon vos besoins */
+    height: auto;
+}
+
+#livresTable th, #livresTable td {
+    vertical-align: middle; /* Centre les éléments verticalement */
 }

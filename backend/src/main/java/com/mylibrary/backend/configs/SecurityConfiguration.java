@@ -49,8 +49,11 @@ public class SecurityConfiguration {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/images/**",
+                                "/css/**",
                                 "/admin/livres",
-                                "/admin/login"
+                                "/admin/login",
+                                "/admin/categories",
+                                "/admin/users"
                         ).permitAll()
 
                         // All other requests require authentication
