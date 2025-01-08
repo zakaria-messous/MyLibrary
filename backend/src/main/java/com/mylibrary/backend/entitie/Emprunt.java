@@ -1,5 +1,6 @@
 package com.mylibrary.backend.entitie;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,10 +20,12 @@ public class Emprunt {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "livre_id", nullable = false)
     private Livre livre;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

@@ -33,8 +33,10 @@ public class Livre{
 
     @ManyToOne
     @JoinColumn(name = "categorie_id")
-    @JsonIgnore
     private Categorie categorie;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     // Getters and Setters
 }

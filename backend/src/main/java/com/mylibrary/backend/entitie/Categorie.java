@@ -20,9 +20,6 @@ public class Categorie {
 
     private String nomCategorie;
 
-    @OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private List<Livre> livres;
 
     // Getters and Setters
 }

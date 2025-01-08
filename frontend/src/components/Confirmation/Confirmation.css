@@ -1,37 +1,72 @@
-.Confirmation
--container {
-    padding: 20px;
-    text-align: center;
+.confirmation-container {
+  padding: 20px;
+  text-align: center;
+  max-width: 650px; /* Limit the modal's width */
+  margin: 0 auto;
+  overflow: hidden; /* Prevent overflowing content */
+}
+
+.confirmation-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px; /* Limit content width */
+}
+
+.book-image {
+  width: 100%; /* Make image responsive */
+  max-width: 130px; /* Limit image size */
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.reservation-date {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%; /* Make the button stretch across the modal */
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .confirmation-container {
+    padding: 15px;
   }
-  
-  .Confirmation
-  -details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .confirmation-details {
+    padding: 15px;
   }
-  
+
   .book-image {
-    width: 150px;
-    height: auto;
-    margin-bottom: 20px;
+    max-width: 150px;
   }
-  
+
   button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 12px;
   }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './navigation.css';
 import profileImage from '../../assets/profile.jpg';
+import { FaSignOutAlt } from 'react-icons/fa'; // Importing an icon for the logout button
 
 const Navigation = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -20,7 +21,6 @@ const Navigation = () => {
   }, []);
 
   const toggleDropdown = () => {
-    console.log("Toggling dropdown", !isDropdownOpen); // Debugging the toggle
     setDropdownOpen(!isDropdownOpen);
   };
 
@@ -31,6 +31,12 @@ const Navigation = () => {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove token from localStorage
+    navigate('/login'); // Redirect to login page
   };
 
   const isHomePage = location.pathname === '/';
@@ -78,42 +84,39 @@ const Navigation = () => {
                 <li><a href="#features" onClick={() => handleNavigation('#features')}>Features</a></li>
                 <li><a href="#team" onClick={() => handleNavigation('#team')}>Team</a></li>
                 <li><a href="#contact" onClick={() => handleNavigation('#contact')}>Contact</a></li>
-                <li><button onClick={() => handleNavigation('/login')} className="login-button" id='login-button'>Login</button></li>
+                <li><button onClick={() => handleNavigation('/login')} className="login-button" id="login-button">Login</button></li>
               </>
             ) : (
               <>
-                <li>
-                  <div className="search-container">
-                    <input
-                      type="text"
-                      placeholder="Search for books..."
-                      value={searchQuery}
-                      onChange={handleSearchChange}
-                      className="search-input"
-                    />
-                  </div>
-                </li>
+
                 {user && (
                   <li className="user-fullname">
                     <span>{user.fullname}</span>
                   </li>
                 )}
+
+                {/* Profile icon */}
                 <li className={`profile-dropdown ${isDropdownOpen ? 'open' : ''}`}>
                   <button
                     className="profile-btn"
-                    onClick={toggleDropdown}
+                    onClick={() => handleNavigation('/profile')}
                     style={{ backgroundImage: `url(${profileImage})` }}
                   ></button>
 
-                  {user && isDropdownOpen && (  // Display dropdown only if user is logged in
+                  {user && isDropdownOpen && (
                     <ul className="dropdown-menu">
                       <li onClick={() => handleNavigation('/profile')}>Profile</li>
                       <li onClick={() => handleNavigation('/reservations')}>Reservations</li>
-                      <li onClick={() => handleNavigation('/logout')}>Logout</li>
                     </ul>
                   )}
                 </li>
-               
+
+                {/* Logout Icon */}
+                <li>
+                  <button onClick={handleLogout} className="logout-icon">
+                    <FaSignOutAlt size={20} color="#ff4d4d" />
+                  </button>
+                </li>
               </>
             )}
           </ul>
