@@ -20,12 +20,10 @@ public class Emprunt {
     private Long id;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "livre_id", nullable = false)
     private Livre livre;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
