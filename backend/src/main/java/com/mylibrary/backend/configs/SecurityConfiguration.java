@@ -54,7 +54,8 @@ public class SecurityConfiguration {
                                 "/admin/login",
                                 "/admin/categories",
                                 "/admin/users",
-                                "/admin/facturations"
+                                "/admin/facturations",
+                                "/admin/emprunts"
                         ).permitAll()
 
                         // All other requests require authentication

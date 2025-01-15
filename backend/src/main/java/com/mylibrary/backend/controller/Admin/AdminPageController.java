@@ -31,4 +31,9 @@ public class AdminPageController {
     public String facturationsPage() {
         return "facturations"; // Refers to templates/facturations.html
     }
+
+    @GetMapping("/admin/emprunts")
+    public String empruntsPage() {
+        return "emprunts"; // Refers to templates/emprunts.html
+    }
 }
