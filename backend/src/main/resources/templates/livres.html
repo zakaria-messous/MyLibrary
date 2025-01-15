@@ -58,6 +58,11 @@
                         <option value="false">Indisponible</option>
                     </select>
                 </div>
+                <div class="col-md-6">
+                    <select id="categorie" class="form-select" required>
+                        <option value="" selected disabled>Choisir une catégorie</option>
+                    </select>
+                </div>
                 <div class="col-md-12">
                     <input type="text" id="imageUrl" placeholder="Lien de l'image" class="form-control">
                 </div>
@@ -129,6 +134,22 @@
         window.location.href = 'login';
     }
 
+    // Fetch and populate categories
+    document.addEventListener('DOMContentLoaded', () => {
+        axios.get('/categorie')
+            .then(response => {
+                const categoriesDropdown = document.getElementById('categorie');
+                response.data.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.nomCategorie; // Use category name as the value
+                    option.textContent = category.nomCategorie; // Display the category name
+                    categoriesDropdown.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching categories:', error));
+    });
+
+
     // Ajouter un livre
     document.getElementById('addLivreForm').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -139,6 +160,7 @@
         const prix = document.getElementById('prix').value;
         const disponibilite = document.getElementById('disponibilite').value;
         const imageUrl = document.getElementById('imageUrl').value;
+        const categorie = document.getElementById('categorie').value; // Get selected category name
 
         axios.post('/livre', {
             titre,
@@ -147,7 +169,8 @@
             nombreCopieDispo: parseInt(nombreCopieDispo),
             prix: parseFloat(prix),
             disponibilite: disponibilite === "true",
-            imageUrl
+            imageUrl,
+            categorie: { nomCategorie: categorie } // Send nomCategorie in the payload
         })
             .then(() => {
                 alert('Livre ajouté avec succès !');
@@ -156,6 +179,7 @@
             })
             .catch(error => console.error(error));
     });
+
 
     // Afficher tous les livres
     document.getElementById('fetchAll').addEventListener('click', () => {

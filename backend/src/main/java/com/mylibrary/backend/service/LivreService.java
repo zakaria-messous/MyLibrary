@@ -63,8 +63,26 @@ public class LivreService {
     }
 
     public Livre saveLivre(Livre livre) {
+        // Check if the Livre has a valid Categorie object before proceeding
+        if (livre.getCategorie() == null || livre.getCategorie().getNomCategorie() == null) {
+            throw new IllegalArgumentException("Categorie is missing or not properly provided.");
+        }
+
+        // Fetch the Categorie by its name (nomCategorie)
+        Categorie categorie = categorieRepository.findByNomCategorie(livre.getCategorie().getNomCategorie());
+
+        if (categorie == null) {
+            // Handle the case where the category does not exist.
+            // You can either create a new category or throw an exception.
+            throw new RuntimeException("Categorie not found: " + livre.getCategorie().getNomCategorie());
+        }
+
+        // Set the Categorie object to the Livre and save it
+        livre.setCategorie(categorie);
+
         return livreRepository.save(livre);
     }
+
 
     public void deleteLivre(Long id) {
         livreRepository.deleteById(id);

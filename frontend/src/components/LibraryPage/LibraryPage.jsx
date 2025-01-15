@@ -1,49 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import Navigation from '../Home/navigation';
 import './LibraryPage.css';
-import axiosInstance from '../../axios'; // Import the custom Axios instance
-import Confirmation from '../Confirmation/Confirmation'; // Import the Confirmation component
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import axiosInstance from '../../axios';
+import Confirmation from '../Confirmation/Confirmation';
+import { useNavigate } from 'react-router-dom';
 
 function LibraryPage() {
-  const navigate = useNavigate(); // To navigate on logout
-  const [books, setBooks] = useState([]); // State for books data
-  const [categories, setCategories] = useState([]); // State for book categories
-  const [bookIndexes, setBookIndexes] = useState({}); // State for tracking book indexes
-  const [selectedCategory, setSelectedCategory] = useState('All'); // State for selected category
-  const [libraryPosition, setLibraryPosition] = useState(400); // State for the library container's top position
-  const [selectedBook, setSelectedBook] = useState(null); // State for the selected book to show in Confirmation
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-  const [loading, setLoading] = useState(true); // State for loading status
+  const navigate = useNavigate();
+  const [books, setBooks] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [bookIndexes, setBookIndexes] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [libraryPosition, setLibraryPosition] = useState(400);
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(''); // State for search term
+  const [filteredBooks, setFilteredBooks] = useState([]); // State for filtered books based on search
 
-  // Fetch books from API on component mount
   useEffect(() => {
-    axiosInstance.get('/livre') // Use the Axios instance for API call
+    axiosInstance.get('/categorie')
+      .then((response) => {
+        setCategories(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching categories:', error);
+        setLoading(false);
+      });
+
+    axiosInstance.get('/livre')
       .then((response) => {
         const fetchedBooks = response.data;
         setBooks(fetchedBooks);
-        // Set categories dynamically based on fetched books
-        const uniqueCategories = [...new Set(fetchedBooks.map((book) => book.category))];
-        setCategories(uniqueCategories);
-        // Initialize book indexes based on categories
+        setFilteredBooks(fetchedBooks); // Initialize filteredBooks with all books
+        const uniqueCategories = [...new Set(fetchedBooks.map((book) => book.categorie.nomCategorie))];
         const initialIndexes = uniqueCategories.reduce((acc, category) => {
           acc[category] = 0;
           return acc;
         }, {});
         setBookIndexes(initialIndexes);
-        setLoading(false); // Set loading to false after data is fetched
       })
       .catch((error) => {
         console.error('Error fetching books:', error);
-        setLoading(false); // Stop loading in case of error
+        setLoading(false);
       });
   }, []);
 
+  const handleSearch = (e) => {
+    const term = e.target.value.toLowerCase();
+    setSearchTerm(term);
+    if (term === '') {
+      setFilteredBooks(books);
+    } else {
+      setFilteredBooks(
+        books.filter((book) => book.titre.toLowerCase().includes(term))
+      );
+    }
+  };
+
   const scroll = (category, direction) => {
-    const booksInCategory = books.filter((book) => book.category === category);
+    const booksInCategory = filteredBooks.filter((book) => book.categorie.nomCategorie === category);
     const totalBooks = booksInCategory.length;
     const currentIndex = bookIndexes[category];
-
     let newIndex = direction === 'left' ? currentIndex - 1 : currentIndex + 1;
 
     if (totalBooks <= 5) {
@@ -62,51 +81,47 @@ function LibraryPage() {
     }));
   };
 
-  // Filter books based on selected category
-  const filteredBooks =
-    selectedCategory === 'All' ? books : books.filter((book) => book.category === selectedCategory);
-
-  // Handle category change to adjust the library container's position
   useEffect(() => {
     if (selectedCategory === 'All') {
       setLibraryPosition(400);
     } else {
-      setLibraryPosition(0); // Move to the top when a category is selected
+      setLibraryPosition(0);
     }
   }, [selectedCategory]);
 
-  // Handle book click to select a book for reservation and open the modal
   const handleBookClick = (book) => {
-    setSelectedBook(book); // Set the selected book to show in the confirmation
-    setIsModalOpen(true); // Open the modal
+    setSelectedBook(book);
+    setIsModalOpen(true);
   };
 
-  // Close the modal
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedBook(null); // Reset the selected book
+    setSelectedBook(null);
   };
 
-  // Handle logout
   const handleLogout = () => {
-    localStorage.removeItem('jwtToken'); // Remove token from localStorage
-    navigate('/login'); // Redirect to login page
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading state while fetching books
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
       <Navigation />
       <div className="library-container" style={{ top: `${libraryPosition}px` }}>
-        {/* Logout Button */}
-        <button onClick={handleLogout} className="logout-button">
-          Logout
-        </button>
+        <div className="search-bar">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleSearch}
+            placeholder="Search for a book..."
+            className="search-input"
+          />
+        </div>
 
-        {/* Category filter dropdown */}
         <div className="category-filter">
           <select
             value={selectedCategory}
@@ -114,38 +129,37 @@ function LibraryPage() {
             className="category-select"
           >
             <option value="All">All Categories</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
+            {categories && categories.map((category) => (
+              <option key={category.id} value={category.nomCategorie}>
+                {category.nomCategorie}
               </option>
             ))}
           </select>
         </div>
 
-        {/* Render books based on the selected category */}
         {selectedCategory === 'All' ? (
           categories.map((category) => {
-            const booksInCategory = books.filter((book) => book.category === category);
+            const booksInCategory = filteredBooks.filter((book) => book.categorie.nomCategorie === category.nomCategorie);
             const totalBooks = booksInCategory.length;
 
             if (totalBooks < 1) {
               return (
-                <div key={category} className="category-section">
-                  <h2>{category}</h2>
+                <div key={category.id} className="category-section">
+                  <h2>{category.nomCategorie}</h2>
                   <p>No books available in this category</p>
                 </div>
               );
             }
 
             return (
-              <div key={category} className="category-section">
-                <h2>{category}</h2>
+              <div key={category.id} className="category-section">
+                <h2>{category.nomCategorie}</h2>
                 <div className="books-row">
-                  <button className="scroll-button-left" onClick={() => scroll(category, 'left')}>
+                  <button className="scroll-button-left" onClick={() => scroll(category.nomCategorie, 'left')}>
                     &lt;
                   </button>
                   {booksInCategory
-                    .slice(bookIndexes[category], bookIndexes[category] + 5)
+                    .slice(bookIndexes[category.nomCategorie], bookIndexes[category.nomCategorie] + 5)
                     .map((book) => (
                       <div key={book.id} className="book-card" onClick={() => handleBookClick(book)}>
                         <img src={book.imageUrl} alt={book.titre} />
@@ -156,7 +170,7 @@ function LibraryPage() {
                         </div>
                       </div>
                     ))}
-                  <button className="scroll-button-right" onClick={() => scroll(category, 'right')}>
+                  <button className="scroll-button-right" onClick={() => scroll(category.nomCategorie, 'right')}>
                     &gt;
                   </button>
                 </div>
@@ -171,6 +185,7 @@ function LibraryPage() {
                 &lt;
               </button>
               {filteredBooks
+                .filter((book) => book.categorie.nomCategorie === selectedCategory)
                 .slice(bookIndexes[selectedCategory], bookIndexes[selectedCategory] + 5)
                 .map((book) => (
                   <div key={book.id} className="book-card" onClick={() => handleBookClick(book)}>
@@ -189,7 +204,6 @@ function LibraryPage() {
           </div>
         )}
 
-        {/* Conditionally render the Confirmation modal */}
         {isModalOpen && selectedBook && (
           <div className="modal-overlay">
             <div className="modal-content">

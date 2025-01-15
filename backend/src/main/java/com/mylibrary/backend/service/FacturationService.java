@@ -1,7 +1,7 @@
 package com.mylibrary.backend.service;
 
 import com.mylibrary.backend.entitie.Facturation;
-import com.mylibrary.backend.entitie.Facturation.TransactionType;
+import com.mylibrary.backend.entitie.User;
 import com.mylibrary.backend.repository.FacturationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,19 +13,15 @@ public class FacturationService {
 
     @Autowired
     private FacturationRepository facturationRepository;
+    @Autowired
+    private UserService userService;
 
-    // Get all transactions
-    public List<Facturation> getAllTransactions() {
+    public List<Facturation> getAllFacturations() {
         return facturationRepository.findAll();
     }
 
-    // Get transactions by type
-    public List<Facturation> getTransactionsByType(TransactionType type) {
-        return facturationRepository.findByType(type);
-    }
-
-    // Delete a transaction by ID
-    public void deleteTransaction(Long id) {
-        facturationRepository.deleteById(id);
+    public List<Facturation> getMyFacturation() {
+        User user = (User) userService.getCurrentUserDetails();
+        return facturationRepository.getFacturationsByUser(user);
     }
 }

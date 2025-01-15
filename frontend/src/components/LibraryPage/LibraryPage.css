@@ -166,25 +166,26 @@
   width: 100%;
 }
 
-button {
-  margin-top: 10px;
-  margin: 10px;
-  background-color:#254363 ;
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0 20px;
+  z-index: 10; /* Ensure it has a higher stacking context */
+  top: 10px;  /* Adjust if necessary to position the search bar correctly */
 }
 
-.logout-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #ff4d4d; /* Red button */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+.search-input {
+  width: 450px;
+  padding: 10px 40px 10px 15px;
+  border: 2px solid #851E38;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
 }
 
-.logout-button:hover {
-  background-color: #ff1a1a; /* Darker red on hover */
+.search-input:focus {
+  border-color: #254363;
+  box-shadow: 0 0 5px rgba(37, 67, 99, 0.5);
 }
+
