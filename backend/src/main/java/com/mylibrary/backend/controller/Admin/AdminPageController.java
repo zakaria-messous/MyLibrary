@@ -27,4 +27,8 @@ public class AdminPageController {
         return "users"; // Refers to templates/users.html
     }
 
+    @GetMapping("/admin/facturations")
+    public String facturationsPage() {
+        return "facturations"; // Refers to templates/facturations.html
+    }
 }
