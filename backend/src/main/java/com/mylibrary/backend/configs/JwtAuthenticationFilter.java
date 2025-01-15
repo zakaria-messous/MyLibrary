@@ -32,7 +32,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             "/admin/livres",
             "/admin/categories",
             "/admin/users",
-            "/admin/facturations"
+            "/admin/facturations",
+            "/admin/emprunts"
     };
 
 

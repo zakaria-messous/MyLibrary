@@ -1,0 +1,59 @@
+body {
+    display: flex;
+    background-color: #e9ecef;
+}
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background-color: #122A44;
+    color: #fff;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px 10px;
+}
+#sidebar .nav-link {
+    color: #fff;
+    margin: 10px 0;
+    transition: color 0.3s;
+}
+#sidebar .nav-link:hover {
+    color: #2592AE;
+}
+#main-content {
+    margin-top: 100px;
+    margin-left: 400px;
+    margin-right: 200px;
+    border-radius: 10px;
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+}
+#livresTable img {
+    display: block;
+    margin: 0 auto; /* Centre l'image horizontalement */
+    width: 80px;    /* Ajustez la taille selon vos besoins */
+    height: auto;
+}
+
+#livresTable th, #livresTable td {
+    vertical-align: middle; /* Centre les éléments verticalement */
+}
+
+.nav-link-lougout {
+    position: fixed;
+    bottom: 30px;
+    left: 0;
+    width: 250px;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-top-right-radius: 10px;
+}
+.nav-link-lougout:hover {
+    color: #ff0000;
+}
+nav img { /* Make it circular */
+    margin-bottom: 10px; /* Add spacing */
+}

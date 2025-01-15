@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Facturations</title>
+    <title>Gestion des Emprunts</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="/css/facturations.css">
+    <link rel="stylesheet" href="/css/emprunts.css">
 </head>
 <body>
 <nav id="sidebar">
@@ -35,19 +35,20 @@
 
 <div id="main-content">
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Gestion des Facturations</h1>
+        <h1 class="text-center mb-4">Gestion des Emprunts</h1>
 
-        <!-- Liste des Facturations -->
-        <h2>Liste des Facturations</h2>
-        <table class="table table-striped" id="facturationTable">
+        <!-- Liste des Emprunts -->
+        <h2>Liste des Emprunts</h2>
+        <table class="table table-striped" id="empruntsTable">
             <thead>
             <tr>
                 <th>ID</th>
                 <th>Utilisateur</th>
                 <th>Livre</th>
-                <th>Prix</th>
-                <th>Type</th>
-                <th>Date</th>
+                <th>Date d'Emprunt</th>
+                <th>Date de Retour</th>
+                <th>Statut</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -71,26 +72,42 @@
             return config;
         }, error => Promise.reject(error));
 
-        const facturationTable = document.querySelector('#facturationTable tbody');
+        const empruntsTable = document.querySelector('#empruntsTable tbody');
 
-        // Fetch all facturations
-        axios.get('/api/facturation')
+        // Fetch all emprunts
+        axios.get('/api/emprunts')
             .then(response => {
-                facturationTable.innerHTML = '';
-                response.data.forEach(facturation => {
+                empruntsTable.innerHTML = '';
+                response.data.forEach(emprunt => {
                     const row = `<tr>
-                            <td>${facturation.id}</td>
-                            <td>${facturation.user.fullName} (${facturation.user.email})</td>
-                            <td>${facturation.livre.titre}</td>
-                            <td>${facturation.prix.toFixed(2)} €</td>
-                            <td>${facturation.type}</td>
-                            <td>${new Date(facturation.dateTransaction).toLocaleDateString()}</td>
+                            <td>${emprunt.id}</td>
+                            <td>${emprunt.user.fullName} (${emprunt.user.email})</td>
+                            <td>${emprunt.livre.titre}</td>
+                            <td>${new Date(emprunt.dateEmprunt).toLocaleDateString()}</td>
+                            <td>${emprunt.dateRetour ? new Date(emprunt.dateRetour).toLocaleDateString() : 'N/A'}</td>
+                            <td>${emprunt.status}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" onclick="updateStatus(${emprunt.id})">Modifier Statut</button>
+                            </td>
                         </tr>`;
-                    facturationTable.innerHTML += row;
+                    empruntsTable.innerHTML += row;
                 });
             })
             .catch(error => console.error(error));
     });
+
+    // Update the status of an emprunt
+    function updateStatus(empruntId) {
+        const newStatus = prompt('Entrez le nouveau statut (e.g., borrowed, returned):');
+        if (newStatus) {
+            axios.patch(`/api/emprunts/${empruntId}/status?status=${newStatus}`)
+                .then(() => {
+                    alert('Statut mis à jour avec succès!');
+                    location.reload();
+                })
+                .catch(error => console.error(error));
+        }
+    }
 
     // Logout function
     function logout() {

@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public interface FacturationRepository extends JpaRepository<Facturation, Long> {
-    List<Facturation> findByType(Facturation.TransactionType type);
+
+    Facturation getFacturationByUser(User user);
 
     List<Facturation> getFacturationsByUser(User user);
 }
