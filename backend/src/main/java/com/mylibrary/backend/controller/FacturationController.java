@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/facturation")
+@RequestMapping("/api/facturation")
 @PreAuthorize("hasAnyRole('ADMIN','SUPERADMIN')") // Restrict access to Admins and Super Admins
 public class FacturationController {
 
@@ -32,5 +32,10 @@ public class FacturationController {
     public ResponseEntity<String> deleteTransaction(@PathVariable Long id) {
         facturationService.deleteTransaction(id);
         return ResponseEntity.ok("Transaction supprimée avec succès !");
+    }
+
+    @GetMapping("/my")
+    public List<Facturation> getMyFacturations() {
+        return facturationService.getMyFacturations();
     }
 }

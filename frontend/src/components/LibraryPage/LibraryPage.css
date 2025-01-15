@@ -167,13 +167,22 @@
 }
 
 .search-container {
-  position: relative;
+  position: fixed; /* Fixe la barre en haut */
+  top: 10px; /* Ajustez en fonction de la hauteur désirée */
+  left: 50%; /* Centrage horizontal */
+  transform: translateX(-50%); /* Correction pour aligner */
   display: flex;
   align-items: center;
-  margin: 0 20px;
-  z-index: 10; /* Ensure it has a higher stacking context */
-  top: 10px;  /* Adjust if necessary to position the search bar correctly */
+  width: 100%; /* S'adapte à la largeur disponible */
+  max-width: 500px;
+  z-index: 1000; /* S'assure qu'elle reste visible */
 }
+
+.search-container {
+  position: relative; /* Peut être fixed ou sticky */
+  z-index: 1050; /* Plus élevé que les autres éléments */
+}
+
 
 .search-input {
   width: 450px;
